@@ -92,16 +92,16 @@ public class LinkedList{
 
         }
     }
-    public boolean search(Object x){ 
-          
+    public int search(Object x){ 
+        int amount=0;
         Node current = head;     
         while (current != null){ 
             if (current.data == x) 
-                return true; 
+                amount++; 
                  
             current = current.next; 
         } 
-        return false;     
+        return amount;     
     }
       
     public void printList(LinkedList list) { 

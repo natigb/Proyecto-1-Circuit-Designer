@@ -10,7 +10,7 @@ package Proyecto1;
  */
 public class Main {
     public static void main(String[] args){
-        OR Comp = new OR();
+        
         
         LinkedList lista = new LinkedList();
         lista.insertFirst(false);
@@ -19,11 +19,15 @@ public class Main {
         lista.insertFirst(false);
         lista.insertFirst(false);
         
-        lista.printList(lista);
-      
-        Comp.inputs=lista;
-        Comp.opOR(Comp.inputs);
-        System.out.println("VALOR: "+Comp.valor);
+        
+        
+        
+        XNOR comp = new XNOR();
+        comp.opXNOR(lista);
+        System.out.println(comp.valor);
+        
+        
+        
         
         
         
