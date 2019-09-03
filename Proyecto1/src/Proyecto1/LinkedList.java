@@ -46,22 +46,16 @@ public class LinkedList{
     }
 
     public LinkedList(){
-
         this.head= null;
         this.size = 0;
-
     }
 
     public boolean isEmpty(){
-
         return this.head == null;
-
     }
 
     public int size(){
-
         return this.size;
-
     }
 
     public void insertFirst(Object data){

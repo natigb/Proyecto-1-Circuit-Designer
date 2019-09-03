@@ -11,25 +11,13 @@ package Proyecto1;
 public class Main {
     public static void main(String[] args){
         
-        
+        System.out.println("a");
         LinkedList lista = new LinkedList();
-        lista.insertFirst(false);
-        lista.insertFirst(false);
-        lista.insertFirst(false);
-        lista.insertFirst(false);
-        lista.insertFirst(false);
-        
-        
-        
-        
-        XNOR comp = new XNOR();
-        comp.opXNOR(lista);
-        System.out.println(comp.valor);
-        
-        
-        
-        
-        
-        
+        lista.insertFirst(1);
+        lista.insertFirst(2);
+        lista.insertFirst(3);
+        lista.insertFirst(4);
+        lista.insertFirst(5);
+    
     }
 }
