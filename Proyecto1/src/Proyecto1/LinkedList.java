@@ -1,63 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    /*
+ * Clase LinkedList para crear listas enlazadas
  */
 package Proyecto1;
 /**
  * 
- * @author Nati Gonzalez
+ * @author Natalia Gonzalez
  */
 
 public class LinkedList{
 
     private Node head;
     private int size;
-    
-    class Node{
-
-        private Object data;
-        private Node next;
-
-            public Node(Object data){
-                this.next= null;
-                this.data = data;
-                }
-
-            public Object getData(){
-                return this.data;
-
-            }
-
-            public void setData(Object data){
-                this.data = data;
-
-            }
-
-            public Node getNext(){
-                return this.next;
-
-            }
-
-            public void setNext(Node node){
-                this.next = node;
-
-            }
-    }
-
+  
     public LinkedList(){
         this.head= null;
         this.size = 0;
     }
-
+    /**
+     * Función para saber si la lista está vacía
+     * @return true si está vacía o false si no lo está
+     */
     public boolean isEmpty(){
         return this.head == null;
     }
-
+    /**
+     * Función para saber el tamaño de la lista
+     * @return El tamaño de la lista
+     */
     public int size(){
         return this.size;
     }
-
+    /**
+     * Función qe crea un nodo a partir de los datos que se ingresen y lo pone al inicio de la lista
+     * @param data 
+     */
     public void insertFirst(Object data){
         if (head==null){
             head = new Node(data);
@@ -72,7 +48,10 @@ public class LinkedList{
         this.size++;
 
     }
-
+    /**
+     * Función que elimina el primer nodo de una lista
+     * @return El nodo que se eliminó o null si la lista estaba vacía
+     */
     public Node deleteFirst(){
 
         if (this.head != null) {
@@ -86,27 +65,51 @@ public class LinkedList{
 
         }
     }
-    public int search(Object x){ 
+    /**
+     * Función que busca un objeto en la lista y retorna la cantidad de veces que se encontró dicho parámetro
+     * @param x 
+     * @return La cantidad de veces que encontró a x en la lista
+     */
+    public int searchAmount(Object x){ 
         int amount=0;
         Node current = head;     
         while (current != null){ 
-            if (current.data == x) 
+            if (current.getData() == x) 
                 amount++; 
                  
-            current = current.next; 
+            current = current.getNext(); 
         } 
         return amount;     
     }
-      
+    /**
+     * Función que permite buscar un nodo de la lista por el ídice en el que se encuentra
+     * @param index Indice de la lista que se quiere buscar
+     * @return datos que contiene el nodo que se encuetra en ese índice
+     */
+    public Object searchByIndex(int index){
+        int counter=0;
+        Node temp= head;
+        while (counter<index){
+            temp=temp.getNext();
+            counter++;
+            
+        }
+        return temp.getData();
+    } 
+    
+    /**
+     * Método para imprimir en consola una lista
+     * @param list  Lista que se quiere imprimir
+     */
     public void printList(LinkedList list) { 
         
         Node current = list.head; 
    
         System.out.print("LinkedList: "); 
         while (current != null) { 
-            System.out.print(current.data + " "); 
+            System.out.print(current.getData() + " "); 
    
-            current = current.next; 
+            current = current.getNext(); 
         } 
     } 
 
