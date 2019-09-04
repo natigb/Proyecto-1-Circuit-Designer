@@ -12,12 +12,13 @@ package Proyecto1;
 public class Compuerta{
     int id;
     LinkedList inputs;
-    LinkedList outputs;
+    LinkedList InputGates;
+    LinkedList OutputGates;
     boolean valor;
     
     public Compuerta(){
         inputs=new LinkedList();
-        outputs= new LinkedList();
+        OutputGates= new LinkedList();
     }
     public void operacion( ){
     }

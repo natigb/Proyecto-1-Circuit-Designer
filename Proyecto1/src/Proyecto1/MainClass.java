@@ -51,11 +51,8 @@ public class MainClass extends Application {
         cto1.nuevaCompuerta(or);
         cto1.nuevaCompuerta(and);
         cto1.nuevaCompuerta(nand);
+        System.out.println(cto1.circuito.searchByID(3));
         
-        Compuerta comp=(Compuerta)cto1.circuito.searchByIndex(0);
-        comp.inputs.insertFirst(false);
-        comp.operacion();
-        System.out.println(comp.id);
         //cto1.circuito.printList(cto1.circuito);
         
         

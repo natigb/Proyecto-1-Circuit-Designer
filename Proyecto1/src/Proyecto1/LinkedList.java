@@ -96,6 +96,24 @@ public class LinkedList{
         }
         return temp.getData();
     } 
+    /**
+     * Función que busca un nodo en una lista de instancias de Compuerta según su atributo de ID
+     * @param id
+     * @return La información del nodo que tiene esa ID o null si la ID no existe
+     */
+    public Object searchByID(int id){
+        Node current=head;
+        while(current!=null){
+            Compuerta actual= (Compuerta)current.getData();
+            if(actual.id==id){
+                return current.getData();
+            }
+            else{
+                current=current.getNext();
+            }
+        }
+        return null;
+    }
     
     /**
      * Método para imprimir en consola una lista

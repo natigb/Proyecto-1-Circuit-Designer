@@ -27,7 +27,19 @@ public class Circuito {
         numero++;
     
     }
-    public void conectarCompuerta(int idIn, int IdOut){
+    /**
+     * Método que recibe las IDs de las compuertas y guarda las conexiones entre ellas
+     * @param idOut
+     * @param idIn 
+     */
+    public void conectarCompuerta(int idOut, int idIn){
+        Compuerta salida= (Compuerta)circuito.searchByID(idOut);
+        Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
+        entrada.InputGates.insertFirst(salida);
+        salida.OutputGates.insertFirst(entrada);
+        entrada.inputs.insertFirst(salida.valor);
+        
+        
         
         
     }
