@@ -23,13 +23,8 @@ public class LinkedList{
     public boolean isEmpty(){
         return this.head == null;
     }
-    /**
-     * Función para saber el tamaño de la lista
-     * @return El tamaño de la lista
-     */
-    public int size(){
-        return this.size;
-    }
+    
+    
     /**
      * Función qe crea un nodo a partir de los datos que se ingresen y lo pone al inicio de la lista
      * @param data 
@@ -48,6 +43,7 @@ public class LinkedList{
         this.size++;
 
     }
+   
     /**
      * Función que elimina el primer nodo de una lista
      * @return El nodo que se eliminó o null si la lista estaba vacía
@@ -70,17 +66,21 @@ public class LinkedList{
      * @param x 
      * @return La cantidad de veces que encontró a x en la lista
      */
-    public int searchAmount(Object x){ 
+    public int searchAmount(boolean x){ 
         int amount=0;
-        Node current = head;     
+        Node current = head;
+        
         while (current != null){ 
-            if (current.getData() == x) 
+            Compuerta actual =(Compuerta)current.getData();
+            if (actual.valor == x) 
                 amount++; 
                  
             current = current.getNext(); 
         } 
         return amount;     
     }
+    
+    
     /**
      * Función que permite buscar un nodo de la lista por el ídice en el que se encuentra
      * @param index Indice de la lista que se quiere buscar
@@ -129,7 +129,27 @@ public class LinkedList{
    
             current = current.getNext(); 
         } 
-    } 
+    }
 
+    public Node getHead() {
+        return head;
+    }
+    /**
+     * Función para saber el tamaño de la lista
+     * @return El tamaño de la lista
+     */
+    public int getSize() {
+        return size;
+    }
+    
+    public void updateGates(LinkedList circuito){
+        
+        Node current = circuito.getHead();
+        while (current != null){
+            Compuerta actual = (Compuerta)current.getData();
+            actual.operacion();
+            current = current.getNext();
+        }
+    }
     }
 

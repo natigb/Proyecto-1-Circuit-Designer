@@ -37,10 +37,32 @@ public class Circuito {
         Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
         entrada.InputGates.insertFirst(salida);
         salida.OutputGates.insertFirst(entrada);
-        entrada.inputs.insertFirst(salida.valor);
-        
-        
-        
+        circuito.updateGates(circuito);
+            
         
     }
+    
+    
+    public void simularCircuito(){
+        circuito.updateGates(circuito);
+        Node current = circuito.getHead();
+        while (current != null){
+            Compuerta actual = (Compuerta)current.getData();
+            if (actual.InputGates.getSize()<2){
+                System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
+            }
+            else{
+                if (actual.OutputGates.getSize()==0){
+                    System.out.println("Salida de la compuerta "+actual.getId()+"es: "+actual.isValor());
+                }
+            }
+            current=current.getNext();
+        }
+    }
+
+    public LinkedList getCircuito() {
+        return circuito;
+    }
+    
+    
 }

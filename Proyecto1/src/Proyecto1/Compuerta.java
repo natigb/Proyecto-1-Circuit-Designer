@@ -11,16 +11,23 @@ package Proyecto1;
  */
 public class Compuerta{
     int id;
-    LinkedList inputs;
     LinkedList InputGates;
     LinkedList OutputGates;
     boolean valor;
     
     public Compuerta(){
-        inputs=new LinkedList();
+        InputGates=new LinkedList();
         OutputGates= new LinkedList();
     }
     public void operacion( ){
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isValor() {
+        return valor;
     }
     
 }
@@ -29,7 +36,7 @@ class AND extends Compuerta{
     
     @Override
     public void operacion(){
-        this.valor = !(inputs.searchAmount(false)!=0);
+        this.valor = !(InputGates.searchAmount(false)!=0);
     }
 }
 
@@ -37,40 +44,40 @@ class NAND extends Compuerta{
 
     @Override
     public void operacion(){
-        this.valor = (inputs.searchAmount(false)!=0);
+        this.valor = (InputGates.searchAmount(false)!=0);
     }
 }
 
 class OR extends Compuerta{
     @Override
     public void operacion(){
-        this.valor = (inputs.searchAmount(true)!=0);
+        this.valor = (InputGates.searchAmount(true)!=0);
     }
 }
 class NOR extends Compuerta{
     @Override
     public void operacion(){
-        this.valor = !(inputs.searchAmount(true)!=0);
+        this.valor = !(InputGates.searchAmount(true)!=0);
     } 
 }
 class NOT extends Compuerta{
-    boolean inputs;
+    
     @Override
     public void operacion(){
-        this.valor= !inputs; 
+        this.valor= !((boolean)InputGates.getHead().getData()); 
     }
 }
 
 class XOR extends Compuerta{
     @Override
     public void operacion(){
-        this.valor= (inputs.searchAmount(true)%2!=0);
+        this.valor= (InputGates.searchAmount(true)%2!=0);
     }
 }
 
 class XNOR extends Compuerta{
     @Override
     public void operacion(){
-        this.valor= !(inputs.searchAmount(true)%2!=0);
+        this.valor= !(InputGates.searchAmount(true)%2!=0);
     }
 }

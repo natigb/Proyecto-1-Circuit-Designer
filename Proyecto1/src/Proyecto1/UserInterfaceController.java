@@ -84,6 +84,9 @@ public class UserInterfaceController implements Initializable {
             ((Circle)(t.getSource())).setTranslateY(newTranslateY);
         }
     };*/
-       
+   @FXML 
+   public void crearAND(){
+       System.out.println(":)");
+   }
 }
 
