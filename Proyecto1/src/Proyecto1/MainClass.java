@@ -30,7 +30,6 @@ import java.lang.reflect.Field;
  */
 
 public class MainClass extends Application {
-    private Stage primaryStage;
    
     
     @Override

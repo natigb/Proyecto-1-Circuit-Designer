@@ -53,7 +53,7 @@ public class Circuito {
             }
             else{
                 if (actual.OutputGates.getSize()==0){
-                    System.out.println("Salida de la compuerta "+actual.getId()+"es: "+actual.isValor());
+                    System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
                 }
             }
             current=current.getNext();

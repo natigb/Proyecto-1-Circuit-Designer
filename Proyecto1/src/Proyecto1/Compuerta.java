@@ -5,6 +5,8 @@
  */
 package Proyecto1;
 
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author Nati Gonzalez
@@ -14,16 +16,18 @@ public class Compuerta{
     LinkedList InputGates;
     LinkedList OutputGates;
     boolean valor;
+    ImageView imagen;
     
     
     public Compuerta(){
         InputGates=new LinkedList();
         OutputGates= new LinkedList();
+        imagen= new ImageView();
     }
     public void operacion( ){
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -34,6 +38,7 @@ public class Compuerta{
 }
   
 class AND extends Compuerta{
+
     
     @Override
     public void operacion(){
