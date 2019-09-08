@@ -13,7 +13,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -36,13 +39,21 @@ public class UserInterfaceController implements Initializable {
     private Font x3;
     @FXML
     private Color x4;
+    @FXML
+    private Pane pane;
+    
+    
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+    
     } 
    @FXML 
    public void circulo(ActionEvent event){
@@ -86,6 +97,10 @@ public class UserInterfaceController implements Initializable {
     };*/
    @FXML 
    public void crearAND(){
+       Image imagen=new Image("C:\\Users\\Nati Gonzalez\\Desktop\\Datos I\\Proyecto1_Pruebas\\img\\and.png");
+       ImageView imgv=new ImageView();
+       imgv.setImage(imagen);
+       pane.getChildren().add(imgv);
        System.out.println(":)");
    }
 }

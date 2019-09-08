@@ -15,6 +15,7 @@ public class Compuerta{
     LinkedList OutputGates;
     boolean valor;
     
+    
     public Compuerta(){
         InputGates=new LinkedList();
         OutputGates= new LinkedList();
