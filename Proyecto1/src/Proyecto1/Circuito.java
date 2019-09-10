@@ -7,7 +7,7 @@ package Proyecto1;
 
 /**
  *
- * @author Nati Gonzalez
+ * @author Natalia Gonzalez
  */
 public class Circuito {
     LinkedList circuito;
@@ -37,11 +37,14 @@ public class Circuito {
         Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
         entrada.InputGates.insertFirst(salida);
         salida.OutputGates.insertFirst(entrada);
-        circuito.updateGates();
-            
-        
+        circuito.updateGates();   
     }
-    
+    public void desconectarCompuerta(int id1, int id2){
+        Compuerta compuertaA = (Compuerta)circuito.searchByID(id1);
+        Compuerta compuertaB = (Compuerta)circuito.searchByID(id2);
+        //compuertaA.InputGates.
+
+    }
     
     public void simularCircuito(){
         circuito.updateGates();
@@ -63,25 +66,10 @@ public class Circuito {
     public LinkedList getCircuito() {
         return circuito;
     }
-    
-    /**
-     * Borra un elemento del circuito según el ID de la compuerta
-     * @param id
-     *  
-     */
-    public void deleteByID(int id){
-        
-        Node current=circuito.getHead();        
-        while(current!=null){
-            Compuerta actual= (Compuerta)current.getData();
-            if(actual.id==id){
-                current.setNext(current.getNext().getNext());
-            }
-           
-            current=current.getNext();
-           
-        }
-        
+    public void delete(int id){
+        circuito.deleteByIndex(circuito.getIndexbyID(id));
     }
+    
+    
     
 }

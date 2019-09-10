@@ -1,9 +1,11 @@
-    /*
+ /*
  * Clase LinkedList para crear listas enlazadas
  */
 package Proyecto1;
 /**
- * 
+ * Es la clase que se encarga de las listas enlazadas, contiene métodos estándar como agregar nodos, eliminar nodos
+ * y también métodos específicamente para una lista con solo objetos de la clase Compuerta para actualizar sus valores 
+ * entre otras cosas
  * @author Natalia Gonzalez
  */
 
@@ -114,14 +116,48 @@ public class LinkedList{
         }
         return null;
     }
+    /**
+     * Borra un elemento del circuito según el ID de la compuerta
+     * @param id
+     *  
+     */
+    public int getIndexbyID(int id){
+        int counter =0;
+        Node current=head;        
+        while(current!=null){
+            Compuerta actual= (Compuerta)current.getData();
+            if(actual.id==id){
+                return counter;
+                
+            }
+            current=current.getNext();
+            counter++;
+            
+        }
+        return 0;
+    }
+    public void deleteByIndex(int index){
+        if (index==0){
+            head = head.getNext();
+        }
+        else{
+            int counter = 0;
+            Node current = head;
+             while(counter<index-1){
+                 current = current.getNext();
+                 counter++;
+             }
+             current.setNext(current.getNext().getNext());
+        }
+        size--;
+    }
    
     /**
      * Método para imprimir en consola una lista
-     * @param list  Lista que se quiere imprimir
+     * 
      */
-    public void printList(LinkedList list) { 
-        
-        Node current = list.head; 
+    public void printList() { 
+        Node current = head; 
    
         System.out.print("LinkedList: "); 
         while (current != null) { 
@@ -131,17 +167,11 @@ public class LinkedList{
         } 
     }
 
-    public Node getHead() {
-        return head;
-    }
-    /**
-     * Función para saber el tamaño de la lista
-     * @return El tamaño de la lista
-     */
-    public int getSize() {
-        return size;
-    }
     
+    
+    /**
+     * Función para actualizar todos los valores de todas las compuertas que tiene un circuito
+     */
     public void updateGates(){
         
         Node current = head;
@@ -152,6 +182,20 @@ public class LinkedList{
         }
     }
     
+    /**
+     * Función para saber el tamaño de la lista
+     * @return El tamaño de la lista
+     */
+    public int getSize() {
+        return size;
+    }
     
+    /**
+     * Función para obtener la cabeza de la lista
+     * @return La cabeza de la lista
+     */
+    public Node getHead() {
+        return head;
+    }
     }
 
