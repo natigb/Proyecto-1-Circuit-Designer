@@ -11,18 +11,18 @@ import javafx.scene.image.ImageView;
  *
  * @author Nati Gonzalez
  */
-public class Compuerta{
+public class Compuerta extends ImageView{
     int id;
     LinkedList InputGates;
     LinkedList OutputGates;
     boolean valor;
-    ImageView imagen;
+    
     
     
     public Compuerta(){
         InputGates=new LinkedList();
         OutputGates= new LinkedList();
-        imagen= new ImageView();
+        
     }
     public void operacion( ){
     }

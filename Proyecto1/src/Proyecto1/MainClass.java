@@ -65,11 +65,12 @@ public class MainClass extends Application {
         cto1.nuevaCompuerta(or2);//3
         or2.InputGates=lista2;
         cto1.nuevaCompuerta(and2);//4
-        cto1.nuevaCompuerta(nor);//5
+        cto1.nuevaCompuerta(nor);//5 5
         nor.InputGates=lista;
         cto1.nuevaCompuerta(and3);//6
         and3.InputGates=lista;
-        cto1.nuevaCompuerta(xor);//7
+        cto1.nuevaCompuerta(xor);//7 4
+        
         
         cto1.conectarCompuerta(3, 0);
         cto1.conectarCompuerta(6, 7);
@@ -86,9 +87,12 @@ public class MainClass extends Application {
         
         cto1.simularCircuito();
         
-        //cto1.circuito.printList(cto1.circuito);
         
-        
+        cto1.circuito.printList(cto1.circuito);
+        cto1.deleteByID(4);
+        System.out.println("");
+        cto1.circuito.printList(cto1.circuito);
+
         
 
       

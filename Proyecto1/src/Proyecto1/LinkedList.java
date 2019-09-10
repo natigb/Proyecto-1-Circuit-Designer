@@ -114,7 +114,7 @@ public class LinkedList{
         }
         return null;
     }
-    
+   
     /**
      * Método para imprimir en consola una lista
      * @param list  Lista que se quiere imprimir
@@ -142,14 +142,16 @@ public class LinkedList{
         return size;
     }
     
-    public void updateGates(LinkedList circuito){
+    public void updateGates(){
         
-        Node current = circuito.getHead();
+        Node current = head;
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
             actual.operacion();
             current = current.getNext();
         }
     }
+    
+    
     }
 

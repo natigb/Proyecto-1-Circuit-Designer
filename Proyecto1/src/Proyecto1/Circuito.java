@@ -37,14 +37,14 @@ public class Circuito {
         Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
         entrada.InputGates.insertFirst(salida);
         salida.OutputGates.insertFirst(entrada);
-        circuito.updateGates(circuito);
+        circuito.updateGates();
             
         
     }
     
     
     public void simularCircuito(){
-        circuito.updateGates(circuito);
+        circuito.updateGates();
         Node current = circuito.getHead();
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
@@ -59,10 +59,29 @@ public class Circuito {
             current=current.getNext();
         }
     }
-
+    
     public LinkedList getCircuito() {
         return circuito;
     }
     
+    /**
+     * Borra un elemento del circuito según el ID de la compuerta
+     * @param id
+     *  
+     */
+    public void deleteByID(int id){
+        
+        Node current=circuito.getHead();        
+        while(current!=null){
+            Compuerta actual= (Compuerta)current.getData();
+            if(actual.id==id){
+                current.setNext(current.getNext().getNext());
+            }
+           
+            current=current.getNext();
+           
+        }
+        
+    }
     
 }

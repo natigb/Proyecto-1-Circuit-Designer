@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto1.UserInterfaceController">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Proyecto1.UserInterfaceController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
       <Menu mnemonicParsing="false" text="Agregar compuerta">
                <items>
             <MenuItem mnemonicParsing="false" onAction="#crearAND" text="AND" />
-            <MenuItem mnemonicParsing="false" text="NAND" />
-            <MenuItem mnemonicParsing="false" text="OR" />
-            <MenuItem mnemonicParsing="false" text="NOR" />
-                  <MenuItem mnemonicParsing="false" text="XOR" />
-                  <MenuItem mnemonicParsing="false" text="XNOR" />
-                  <MenuItem mnemonicParsing="false" text="NOT" />
+            <MenuItem mnemonicParsing="false" onAction="#crearNAND" text="NAND" />
+            <MenuItem mnemonicParsing="false" onAction="#crearOR" text="OR" />
+            <MenuItem mnemonicParsing="false" onAction="#crearNOR" text="NOR" />
+                  <MenuItem mnemonicParsing="false" onAction="#crearXOR" text="XOR" />
+                  <MenuItem mnemonicParsing="false" onAction="#crearXNOR" text="XNOR" />
+                  <MenuItem mnemonicParsing="false" onAction="#crearNOT" text="NOT" />
                </items>
             </Menu>
       </menus>
