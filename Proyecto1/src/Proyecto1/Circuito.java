@@ -67,7 +67,22 @@ public class Circuito {
         return circuito;
     }
     public void delete(int id){
+        Compuerta compuerta = (Compuerta)circuito.searchByID(id);
+        Node currenti=compuerta.OutputGates.getHead();
+        while (currenti!= null){
+            Compuerta actual = (Compuerta)currenti.getData();
+            actual.InputGates.deleteByIndex(actual.InputGates.getIndexbyID(id));
+            currenti=currenti.getNext(); 
+        }
+        Node currento=compuerta.InputGates.getHead();
+        while (currento!= null){
+            Compuerta actual = (Compuerta)currento.getData();
+            actual.OutputGates.deleteByIndex(actual.OutputGates.getIndexbyID(id));
+            currento=currento.getNext(); 
+        }
+       
         circuito.deleteByIndex(circuito.getIndexbyID(id));
+        circuito.updateGates();
     }
     
     

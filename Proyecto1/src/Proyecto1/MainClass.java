@@ -89,8 +89,9 @@ public class MainClass extends Application {
         
         
         cto1.circuito.printList();
-        cto1.delete(7);
-      
+        cto1.delete(4);
+        
+
         
         System.out.println("");
         cto1.circuito.printList();

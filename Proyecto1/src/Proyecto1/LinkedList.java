@@ -157,8 +157,11 @@ public class LinkedList{
      * 
      */
     public void printList() { 
+        if (size==0){
+            System.out.println("null");
+        }
         Node current = head; 
-   
+        
         System.out.print("LinkedList: "); 
         while (current != null) { 
             System.out.print(current.getData() + " "); 

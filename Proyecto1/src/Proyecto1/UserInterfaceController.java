@@ -29,7 +29,7 @@ import javafx.scene.text.Font;
  */
 public class UserInterfaceController implements Initializable {
     
-    Circuito circuit;
+    Circuito circuit = new Circuito();
     
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
@@ -57,11 +57,16 @@ public class UserInterfaceController implements Initializable {
         
     
     } 
+   @FXML
+   public void imprimirCircuito(){
+       circuit.circuito.printList();
+   }
    
    @FXML 
    public void crearAND(){
        Image imagen=new Image("Proyecto1/img/and.png");
        AND and =new AND();
+       circuit.nuevaCompuerta(and);
        and.setImage(imagen);
        and.setOnMousePressed(pressGate);
        and.setOnMouseDragged(dragGate);
@@ -73,6 +78,7 @@ public class UserInterfaceController implements Initializable {
    public void crearNAND(){
        Image imagen=new Image("Proyecto1/img/nand.png");
        NAND nand =new NAND();
+       circuit.nuevaCompuerta(nand);
        nand.setImage(imagen);
        nand.setOnMousePressed(pressGate);
        nand.setOnMouseDragged(dragGate);
@@ -84,6 +90,7 @@ public class UserInterfaceController implements Initializable {
    public void crearOR(){
        Image imagen=new Image("Proyecto1/img/or.png");
        OR or =new OR();
+       circuit.nuevaCompuerta(or);
        or.setImage(imagen);
        or.setOnMousePressed(pressGate);
        or.setOnMouseDragged(dragGate);
@@ -94,6 +101,7 @@ public class UserInterfaceController implements Initializable {
    public void crearNOR(){
        Image imagen=new Image("Proyecto1/img/nor.png");
        NOR nor =new NOR();
+       circuit.nuevaCompuerta(nor);
        nor.setImage(imagen);
        nor.setOnMousePressed(pressGate);
        nor.setOnMouseDragged(dragGate);
@@ -105,6 +113,7 @@ public class UserInterfaceController implements Initializable {
    public void crearXOR(){
        Image imagen=new Image("Proyecto1/img/xor.png");
        XOR xor =new XOR();
+       circuit.nuevaCompuerta(xor);
        xor.setImage(imagen);
        xor.setOnMousePressed(pressGate);
        xor.setOnMouseDragged(dragGate);
@@ -116,6 +125,7 @@ public class UserInterfaceController implements Initializable {
    public void crearXNOR(){
        Image imagen=new Image("Proyecto1/img/xnor.png");
        XNOR xnor =new XNOR();
+       circuit.nuevaCompuerta(xnor);
        xnor.setImage(imagen);
        xnor.setOnMousePressed(pressGate);
        xnor.setOnMouseDragged(dragGate);
@@ -127,6 +137,7 @@ public class UserInterfaceController implements Initializable {
    public void crearNOT(){
        Image imagen=new Image("Proyecto1/img/not.png");
        NOT not =new NOT();
+       circuit.nuevaCompuerta(not);
        not.setImage(imagen);
        not.setOnMousePressed(pressGate);
        not.setOnMouseDragged(dragGate);
