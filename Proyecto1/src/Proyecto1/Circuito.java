@@ -38,6 +38,7 @@ public class Circuito {
         entrada.InputGates.insertFirst(salida);
         salida.OutputGates.insertFirst(entrada);
         circuito.updateGates();   
+        System.out.println("Compuerta "+idOut+" conectada con "+idIn);
     }
     public void desconectarCompuerta(int id1, int id2){
         Compuerta compuertaA = (Compuerta)circuito.searchByID(id1);

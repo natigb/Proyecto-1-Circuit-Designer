@@ -85,17 +85,17 @@ public class MainClass extends Application {
         cto1.conectarCompuerta(0, 4);
         
         
-        cto1.simularCircuito();
+        //cto1.simularCircuito();
         
         
         cto1.circuito.printList();
-        cto1.delete(4);
+        
         
 
         
         System.out.println("");
         cto1.circuito.printList();
-        cto1.simularCircuito();
+        //cto1.simularCircuito();
 
         
 

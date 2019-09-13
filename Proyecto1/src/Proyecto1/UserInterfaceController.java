@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 
 
@@ -30,7 +31,12 @@ import javafx.scene.text.Font;
 public class UserInterfaceController implements Initializable {
     
     Circuito circuit = new Circuito();
-    
+    int entrada;
+    int salida;
+    double startX;
+    double startY;
+    double endX;
+    double endY;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
     @FXML
@@ -54,12 +60,19 @@ public class UserInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+    }
     
-    } 
    @FXML
    public void imprimirCircuito(){
+       circuit.simularCircuito();
        circuit.circuito.printList();
+       Line line=new Line();
+                line.setStartX(startX); 
+                line.setStartY(startY); 
+                line.setEndX(endX); 
+                line.setEndY(endY);
+                pane.getChildren().addAll(line);
+       
    }
    
    @FXML 
@@ -70,6 +83,7 @@ public class UserInterfaceController implements Initializable {
        and.setImage(imagen);
        and.setOnMousePressed(pressGate);
        and.setOnMouseDragged(dragGate);
+       and.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(and);
        
    }
@@ -82,6 +96,7 @@ public class UserInterfaceController implements Initializable {
        nand.setImage(imagen);
        nand.setOnMousePressed(pressGate);
        nand.setOnMouseDragged(dragGate);
+       nand.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(nand);
        
    }
@@ -94,6 +109,7 @@ public class UserInterfaceController implements Initializable {
        or.setImage(imagen);
        or.setOnMousePressed(pressGate);
        or.setOnMouseDragged(dragGate);
+       or.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(or);
        
    }
@@ -105,6 +121,7 @@ public class UserInterfaceController implements Initializable {
        nor.setImage(imagen);
        nor.setOnMousePressed(pressGate);
        nor.setOnMouseDragged(dragGate);
+       nor.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(nor);
        
    }
@@ -117,6 +134,7 @@ public class UserInterfaceController implements Initializable {
        xor.setImage(imagen);
        xor.setOnMousePressed(pressGate);
        xor.setOnMouseDragged(dragGate);
+       xor.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(xor);
        
    }
@@ -129,6 +147,7 @@ public class UserInterfaceController implements Initializable {
        xnor.setImage(imagen);
        xnor.setOnMousePressed(pressGate);
        xnor.setOnMouseDragged(dragGate);
+       xnor.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(xnor);
        
    }
@@ -141,10 +160,35 @@ public class UserInterfaceController implements Initializable {
        not.setImage(imagen);
        not.setOnMousePressed(pressGate);
        not.setOnMouseDragged(dragGate);
+       not.setOnMouseClicked(eraseGate);
        pane.getChildren().addAll(not);
        
    }
-   
+   EventHandler<MouseEvent> eraseGate= new EventHandler<MouseEvent>(){
+
+        @Override
+        public void handle(MouseEvent t) {
+            Compuerta compuerta=(Compuerta)(t.getSource());
+            if(t.isAltDown()){
+                circuit.delete(compuerta.getID());
+                compuerta.setImage(null);
+            }
+            if(t.isControlDown()){
+                entrada= compuerta.getID();
+                startX= compuerta.getX();
+                startY= compuerta.getY();
+            }
+            if (t.isShiftDown()){
+                salida = compuerta.getID();
+                circuit.conectarCompuerta(salida, entrada);
+                endX= compuerta.getX();
+                endY = compuerta.getY();
+                
+                
+                
+            }
+        }
+    };
    EventHandler<MouseEvent> pressGate= new EventHandler<MouseEvent>(){
 
         @Override
