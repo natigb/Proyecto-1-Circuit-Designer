@@ -12,6 +12,11 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
+            <Menu mnemonicParsing="false" text="Reset">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#resetPane" text="Reset Pane" />
+              </items>
+            </Menu>
       <Menu mnemonicParsing="false" text="Agregar compuerta">
                <items>
             <MenuItem mnemonicParsing="false" onAction="#crearAND" text="AND" />

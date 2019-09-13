@@ -18,7 +18,10 @@ public class Circuito {
         circuito= new LinkedList();
     }
     
-    
+    /**
+     * Función que recibe un objeto (Compuerta) y la añade a la lista del circuito
+     * @param nueva 
+     */
     public void nuevaCompuerta(Object nueva){
         
         Compuerta comp =(Compuerta)nueva;
@@ -28,7 +31,8 @@ public class Circuito {
     
     }
     /**
-     * Método que recibe las IDs de las compuertas y guarda las conexiones entre ellas
+     * Método que recibe las IDs de las compuertas y guarda las conexiones entre ellas, toma el output y 
+     * lo guarda en los inputs de la otra y viceversa
      * @param idOut
      * @param idIn 
      */
@@ -46,7 +50,10 @@ public class Circuito {
         //compuertaA.InputGates.
 
     }
-    
+    /**
+     * Función para simular el circuito, actualiza los valores y luego revisa si hacen falta entradas e imprime un mensaje diciendo
+     * que las llene y si no imprime el valor que tienen las compuertas de salida (Su output vací
+     */
     public void simularCircuito(){
         circuito.updateGates();
         Node current = circuito.getHead();
@@ -64,9 +71,7 @@ public class Circuito {
         }
     }
     
-    public LinkedList getCircuito() {
-        return circuito;
-    }
+    
     public void delete(int id){
         Compuerta compuerta = (Compuerta)circuito.searchByID(id);
         Node currenti=compuerta.OutputGates.getHead();
@@ -85,7 +90,12 @@ public class Circuito {
         circuito.deleteByIndex(circuito.getIndexbyID(id));
         circuito.updateGates();
     }
-    
-    
+   /**
+    * Función para vere que hay dentro del circuito
+    * @return La lista con todas las compuertas que fueron agregadas
+    */
+   public LinkedList getCircuito() {
+        return circuito;
+    } 
     
 }

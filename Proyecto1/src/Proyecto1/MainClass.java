@@ -34,7 +34,7 @@ public class MainClass extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        
+        //PRUEBAS DE LÓGICA -inicio-
         AND and = new AND();
         AND and2 = new AND();
         AND and3 = new AND();
@@ -84,25 +84,17 @@ public class MainClass extends Application {
         cto1.conectarCompuerta(6, 4);
         cto1.conectarCompuerta(0, 4);
         
-        
         //cto1.simularCircuito();
-        
         
         cto1.circuito.printList();
         
-        
-
         
         System.out.println("");
         cto1.circuito.printList();
         //cto1.simularCircuito();
-
+        //PRUEBAS DE LÓGICA -final-
         
 
-      
-        
-        
-        
         
         Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
         
@@ -111,14 +103,10 @@ public class MainClass extends Application {
         stage.setScene(new Scene(root, 900, 600));
         stage.show();
     
-        
-        
     }
     
     
     public static void main(String[] args) {
-        
-       
         
         Application.launch(MainClass.class, args);
         

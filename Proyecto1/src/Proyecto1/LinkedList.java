@@ -18,15 +18,7 @@ public class LinkedList{
         this.head= null;
         this.size = 0;
     }
-    /**
-     * Función para saber si la lista está vacía
-     * @return true si está vacía o false si no lo está
-     */
-    public boolean isEmpty(){
-        return this.head == null;
-    }
-    
-    
+   
     /**
      * Función qe crea un nodo a partir de los datos que se ingresen y lo pone al inicio de la lista
      * @param data 
@@ -117,9 +109,9 @@ public class LinkedList{
         return null;
     }
     /**
-     * Borra un elemento del circuito según el ID de la compuerta
-     * @param id
-     *  
+     * Método específico para las compuertas que busca el índice en que se encuentra la compuerta según su id
+     * @param id de la compuerta
+     * @return el ídice en el que se encuentra la compuerta que se está buscando
      */
     public int getIndexbyID(int id){
         int counter =0;
@@ -136,6 +128,10 @@ public class LinkedList{
         }
         return 0;
     }
+    /**
+     * Método para eliminar un elemento de una lista según el ídice que se le digite
+     * @param index 
+     */
     public void deleteByIndex(int index){
         if (index==0){
             head = head.getNext();
@@ -183,6 +179,20 @@ public class LinkedList{
             actual.operacion();
             current = current.getNext();
         }
+    }
+    /**
+     * Función para vaciar una lista
+     */
+    public void clearList(){
+        
+        
+    }
+    /**
+     * Función para saber si la lista está vacía
+     * @return true si está vacía o false si no lo está
+     */
+    public boolean isEmpty(){
+        return this.head == null;
     }
     
     /**

@@ -66,15 +66,14 @@ public class UserInterfaceController implements Initializable {
    public void imprimirCircuito(){
        circuit.simularCircuito();
        circuit.circuito.printList();
-       Line line=new Line();
-                line.setStartX(startX); 
-                line.setStartY(startY); 
-                line.setEndX(endX); 
-                line.setEndY(endY);
-                pane.getChildren().addAll(line);
+       
        
    }
-   
+   @FXML
+   public void resetPane(){
+       circuit.circuito.clearList();
+       pane.getChildren().clear();
+   }
    @FXML 
    public void crearAND(){
        Image imagen=new Image("Proyecto1/img/and.png");
@@ -174,15 +173,19 @@ public class UserInterfaceController implements Initializable {
                 compuerta.setImage(null);
             }
             if(t.isControlDown()){
-                entrada= compuerta.getID();
-                startX= compuerta.getX();
-                startY= compuerta.getY();
+                salida= compuerta.getID();
+                startX= t.getSceneX()-100;
+                startY= t.getSceneY()-25;
             }
             if (t.isShiftDown()){
-                salida = compuerta.getID();
+                entrada = compuerta.getID();
                 circuit.conectarCompuerta(salida, entrada);
-                endX= compuerta.getX();
-                endY = compuerta.getY();
+                endX= t.getSceneX()-100;
+                endY = t.getSceneY()-25;
+                crearLinea();
+
+            
+                
                 
                 
                 
@@ -213,7 +216,36 @@ public class UserInterfaceController implements Initializable {
         }
    
    };
+   EventHandler<MouseEvent> eraseLine= new EventHandler<MouseEvent>(){
+
+        @Override
+        public void handle(MouseEvent t) {
+            if(t.isAltDown()){
+            Line linea=(Line)t.getSource();
+            pane.getChildren().removeAll(linea);
+            }
+        }
    
+   };
+   public void crearLinea(){
+        Line line=new Line();
+        line.setStartX(startX); 
+        line.setStartY(startY); 
+        line.setEndX(endX); 
+        line.setEndY(endY);
+        line.setStrokeWidth(3);
+        line.setOnMouseClicked(eraseLine);
+        pane.getChildren().addAll(line);
+       
+   
+   }
+   /*public Color colorLine(){
+       Color color= new Color();
+       int r = 4;
+       int g = 3;
+       int b = 2;
+       
+   }*/
    
 }
 
