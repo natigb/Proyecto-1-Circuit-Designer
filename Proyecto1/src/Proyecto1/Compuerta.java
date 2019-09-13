@@ -26,20 +26,27 @@ public class Compuerta extends ImageView{
     }
     public void operacion( ){
     }
-
+    /**
+     * Función para saber el ID de la compuerta
+     * @return el ID de la compuerta
+     */
     public int getID() {
         return id;
     }
-
+    /**
+     * Método que retorna el valor de la compuerta
+     * @return el valor de la compuerta
+     */
     public boolean isValor() {
         return valor;
     }
     
 }
-  
+ 
 class AND extends Compuerta{
-
-    
+    /**
+     * Operación de una and, si hay aunque sea un false, retorna un false
+     */
     @Override
     public void operacion(){
         this.valor = !(InputGates.searchAmount(false)!=0);
@@ -47,7 +54,9 @@ class AND extends Compuerta{
 }
 
 class NAND extends Compuerta{
-
+    /**
+     * Operación de una nand, si hay un true, retorna true
+     */
     @Override
     public void operacion(){
         this.valor = (InputGates.searchAmount(false)!=0);
@@ -55,12 +64,18 @@ class NAND extends Compuerta{
 }
 
 class OR extends Compuerta{
+    /**
+     * Operacion de una or, si hay un true. devuelve false
+     */
     @Override
     public void operacion(){
         this.valor = (InputGates.searchAmount(true)!=0);
     }
 }
 class NOR extends Compuerta{
+    /**
+     * Operacion de una nor, si hay un true. devuelve ture
+     */
     @Override
     public void operacion(){
         this.valor = !(InputGates.searchAmount(true)!=0);

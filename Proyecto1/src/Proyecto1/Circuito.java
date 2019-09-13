@@ -44,6 +44,7 @@ public class Circuito {
         circuito.updateGates();   
         System.out.println("Compuerta "+idOut+" conectada con "+idIn);
     }
+    //Sin terminar
     public void desconectarCompuerta(int id1, int id2){
         Compuerta compuertaA = (Compuerta)circuito.searchByID(id1);
         Compuerta compuertaB = (Compuerta)circuito.searchByID(id2);
@@ -71,7 +72,10 @@ public class Circuito {
         }
     }
     
-    
+    /**
+     * Función que elimina una compuerta del circuito según su Id
+     * @param id de la compuerta
+     */
     public void delete(int id){
         Compuerta compuerta = (Compuerta)circuito.searchByID(id);
         Node currenti=compuerta.OutputGates.getHead();
