@@ -28,6 +28,12 @@
                   <MenuItem mnemonicParsing="false" onAction="#crearNOT" text="NOT" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Inputs">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#addTrue" text="True" />
+                  <MenuItem mnemonicParsing="false" onAction="#addFalse" text="False" />
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
       <HBox prefHeight="576.0" prefWidth="900.0">

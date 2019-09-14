@@ -30,6 +30,11 @@ public class Circuito {
         numero++;
     
     }
+    public void agregarEntrada(Object nueva){
+       
+        circuito.insertFirst(nueva);
+
+    }
     /**
      * Método que recibe las IDs de las compuertas y guarda las conexiones entre ellas, toma el output y 
      * lo guarda en los inputs de la otra y viceversa
@@ -37,12 +42,18 @@ public class Circuito {
      * @param idIn 
      */
     public void conectarCompuerta(int idOut, int idIn){
-        Compuerta salida= (Compuerta)circuito.searchByID(idOut);
-        Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
-        entrada.InputGates.insertFirst(salida);
-        salida.OutputGates.insertFirst(entrada);
-        circuito.updateGates();   
-        System.out.println("Compuerta "+idOut+" conectada con "+idIn);
+        if (idIn==-1 || idIn==-2){
+            System.out.println("Solo pueden ser inputs");
+        }
+        else{
+            Compuerta salida= (Compuerta)circuito.searchByID(idOut);
+            Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
+            entrada.InputGates.insertFirst(salida);
+            salida.OutputGates.insertFirst(entrada);
+            circuito.updateGates();   
+            System.out.println("Compuerta "+idOut+" conectada con "+idIn);
+    
+        }
     }
     //Sin terminar
     public void desconectarCompuerta(int id1, int id2){
@@ -60,12 +71,14 @@ public class Circuito {
         Node current = circuito.getHead();
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
-            if (actual.InputGates.getSize()<2){
-                System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
-            }
-            else{
-                if (actual.OutputGates.getSize()==0){
-                    System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
+            if (actual.getID()!=-1 && actual.getID() !=-2){
+                if (actual.InputGates.getSize()<2){
+                    System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
+                }
+                else{
+                    if (actual.OutputGates.getSize()==0){
+                        System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
+                    }
                 }
             }
             current=current.getNext();

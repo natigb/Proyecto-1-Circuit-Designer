@@ -102,3 +102,22 @@ class XNOR extends Compuerta{
         this.valor= !(InputGates.searchAmount(true)%2!=0);
     }
 }
+    
+class Verdadero extends Compuerta{
+    
+    public Verdadero() {
+        this.id=-1;
+        this.valor=true;
+        
+    }
+    
+}
+class Falso extends Compuerta{
+
+    public Falso() {
+        this.id=-2;
+        this.valor=false;
+    }
+    
+}
+

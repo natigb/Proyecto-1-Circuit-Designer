@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -39,14 +40,8 @@ public class UserInterfaceController implements Initializable {
     double endY;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
-    @FXML
-    private Font x1;
-    @FXML
-    private Color x2;
-    @FXML
-    private Font x3;
-    @FXML
-    private Color x4;
+    Color color;
+    LinkedList colores;
     @FXML
     private Pane pane;
     
@@ -83,6 +78,7 @@ public class UserInterfaceController implements Initializable {
        and.setOnMousePressed(pressGate);
        and.setOnMouseDragged(dragGate);
        and.setOnMouseClicked(eraseGate);
+       
        pane.getChildren().addAll(and);
        
    }
@@ -93,6 +89,7 @@ public class UserInterfaceController implements Initializable {
        NAND nand =new NAND();
        circuit.nuevaCompuerta(nand);
        nand.setImage(imagen);
+       
        nand.setOnMousePressed(pressGate);
        nand.setOnMouseDragged(dragGate);
        nand.setOnMouseClicked(eraseGate);
@@ -163,6 +160,32 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(not);
        
    }
+   
+   @FXML
+   public void addFalse(){
+       Image imagen=new Image("Proyecto1/img/false.png");
+       Falso falso=new Falso();
+       falso.setImage(imagen);
+       circuit.agregarEntrada(falso);
+       falso.setOnMousePressed(pressGate);
+       falso.setOnMouseDragged(dragGate);
+       falso.setOnMouseClicked(eraseGate);
+       pane.getChildren().addAll(falso);
+       
+   }
+   @FXML
+   public void addTrue(){
+       Image imagen=new Image("Proyecto1/img/true.png");
+       Verdadero verdadero=new Verdadero();
+       verdadero.setImage(imagen);
+       circuit.agregarEntrada(verdadero);
+       verdadero.setOnMousePressed(pressGate);
+       verdadero.setOnMouseDragged(dragGate);
+       verdadero.setOnMouseClicked(eraseGate);
+       pane.getChildren().addAll(verdadero);
+   
+   }
+   
    EventHandler<MouseEvent> eraseGate= new EventHandler<MouseEvent>(){
 
         @Override
@@ -173,22 +196,22 @@ public class UserInterfaceController implements Initializable {
                 compuerta.setImage(null);
             }
             if(t.isControlDown()){
+                
                 salida= compuerta.getID();
                 startX= t.getSceneX()-100;
                 startY= t.getSceneY()-25;
             }
             if (t.isShiftDown()){
-                entrada = compuerta.getID();
-                circuit.conectarCompuerta(salida, entrada);
-                endX= t.getSceneX()-100;
-                endY = t.getSceneY()-25;
-                crearLinea();
-
-            
-                
-                
-                
-                
+                if (compuerta.getID()!=-1 && compuerta.getID()!=-2 ){
+                    entrada = compuerta.getID();
+                    circuit.conectarCompuerta(salida, entrada);
+                    endX= t.getSceneX()-100;
+                    endY = t.getSceneY()-25;
+                    crearLinea();
+                }
+                else{
+                    System.out.println("No se puede hacer la linea");
+                }
             }
         }
     };
@@ -200,6 +223,7 @@ public class UserInterfaceController implements Initializable {
             orgSceneY = t.getSceneY();
             orgTranslateX=((Compuerta)(t.getSource())).getTranslateX();
             orgTranslateY=((Compuerta)(t.getSource())).getTranslateY();
+           
         }
     };
    EventHandler<MouseEvent> dragGate= new EventHandler<MouseEvent>(){
@@ -234,18 +258,20 @@ public class UserInterfaceController implements Initializable {
         line.setEndX(endX); 
         line.setEndY(endY);
         line.setStrokeWidth(3);
+        line.setStroke(colorLine());
         line.setOnMouseClicked(eraseLine);
+        
         pane.getChildren().addAll(line);
        
    
    }
-   /*public Color colorLine(){
-       Color color= new Color();
-       int r = 4;
-       int g = 3;
-       int b = 2;
-       
-   }*/
+   public Color colorLine(){
+       int r = (int) (Math.random() * 255);
+       int g = (int) (Math.random() * 255);
+       int b = (int) (Math.random() * 255);
+       Color c = Color.rgb(r,g,b);
+       return c;
+   }
    
 }
 
