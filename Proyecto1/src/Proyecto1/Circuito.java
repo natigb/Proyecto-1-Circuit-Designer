@@ -71,7 +71,7 @@ public class Circuito {
         Node current = circuito.getHead();
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
-            if (actual.getID()!=-1 && actual.getID() !=-2){
+            if (actual.getID()!= -1 && actual.getID() != -2){
                 if (actual.InputGates.getSize()<2){
                     System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
                 }

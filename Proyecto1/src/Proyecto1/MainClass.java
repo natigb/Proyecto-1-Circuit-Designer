@@ -35,7 +35,7 @@ public class MainClass extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //PRUEBAS DE LÓGICA -inicio-
-        AND and = new AND();
+        /*AND and = new AND();
         AND and2 = new AND();
         AND and3 = new AND();
         NAND nand = new NAND();
@@ -91,7 +91,7 @@ public class MainClass extends Application {
         
         System.out.println("");
         cto1.circuito.printList();
-        //cto1.simularCircuito();
+        //cto1.simularCircuito();*/
         //PRUEBAS DE LÓGICA -final-
         
 

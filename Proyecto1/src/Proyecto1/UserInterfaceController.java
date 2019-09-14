@@ -5,23 +5,16 @@
  */
 package Proyecto1;
 
-import java.awt.Rectangle;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
 
 
 /**
@@ -40,7 +33,6 @@ public class UserInterfaceController implements Initializable {
     double endY;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
-    Color color;
     LinkedList colores;
     @FXML
     private Pane pane;
@@ -249,8 +241,8 @@ public class UserInterfaceController implements Initializable {
             pane.getChildren().removeAll(linea);
             }
         }
-   
    };
+   
    public void crearLinea(){
         Line line=new Line();
         line.setStartX(startX); 
@@ -260,11 +252,10 @@ public class UserInterfaceController implements Initializable {
         line.setStrokeWidth(3);
         line.setStroke(colorLine());
         line.setOnMouseClicked(eraseLine);
-        
         pane.getChildren().addAll(line);
-       
-   
+        line.toBack();
    }
+   
    public Color colorLine(){
        int r = (int) (Math.random() * 255);
        int g = (int) (Math.random() * 255);
@@ -272,6 +263,8 @@ public class UserInterfaceController implements Initializable {
        Color c = Color.rgb(r,g,b);
        return c;
    }
+   
+  
    
 }
 
