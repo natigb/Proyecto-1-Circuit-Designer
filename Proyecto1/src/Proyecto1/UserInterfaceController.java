@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -61,17 +62,20 @@ public class UserInterfaceController implements Initializable {
        circuit.circuito.clearList();
        pane.getChildren().clear();
    }
+   
    @FXML 
    public void crearAND(){
        Image imagen=new Image("Proyecto1/img/and.png");
        AND and =new AND();
        circuit.nuevaCompuerta(and);
+       and.label.setText("AND"+Integer.toString(and.getID()));
+       and.label.setLayoutY(80);
        and.setImage(imagen);
        and.setOnMousePressed(pressGate);
        and.setOnMouseDragged(dragGate);
        and.setOnMouseClicked(eraseGate);
+       pane.getChildren().addAll(and,and.label);
        
-       pane.getChildren().addAll(and);
        
    }
    
@@ -80,12 +84,13 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/nand.png");
        NAND nand =new NAND();
        circuit.nuevaCompuerta(nand);
+       nand.label.setText("NAND"+Integer.toString(nand.getID()));
+       nand.label.setLayoutY(80);
        nand.setImage(imagen);
-       
        nand.setOnMousePressed(pressGate);
        nand.setOnMouseDragged(dragGate);
        nand.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(nand);
+       pane.getChildren().addAll(nand,nand.label);
        
    }
    
@@ -94,11 +99,13 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/or.png");
        OR or =new OR();
        circuit.nuevaCompuerta(or);
+       or.label.setText("OR"+Integer.toString(or.getID()));
+       or.label.setLayoutY(80);
        or.setImage(imagen);
        or.setOnMousePressed(pressGate);
        or.setOnMouseDragged(dragGate);
        or.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(or);
+       pane.getChildren().addAll(or,or.label);
        
    }
    @FXML 
@@ -106,11 +113,13 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/nor.png");
        NOR nor =new NOR();
        circuit.nuevaCompuerta(nor);
+       nor.label.setText("NOR"+Integer.toString(nor.getID()));
+       nor.label.setLayoutY(80);
        nor.setImage(imagen);
        nor.setOnMousePressed(pressGate);
        nor.setOnMouseDragged(dragGate);
        nor.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(nor);
+       pane.getChildren().addAll(nor,nor.label);
        
    }
    
@@ -119,11 +128,13 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/xor.png");
        XOR xor =new XOR();
        circuit.nuevaCompuerta(xor);
+       xor.label.setText("XOR"+Integer.toString(xor.getID()));
+       xor.label.setLayoutY(80);
        xor.setImage(imagen);
        xor.setOnMousePressed(pressGate);
        xor.setOnMouseDragged(dragGate);
        xor.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(xor);
+       pane.getChildren().addAll(xor, xor.label);
        
    }
    
@@ -132,11 +143,13 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/xnor.png");
        XNOR xnor =new XNOR();
        circuit.nuevaCompuerta(xnor);
+       xnor.label.setText("XNOR"+Integer.toString(xnor.getID()));
+       xnor.label.setLayoutY(80);
        xnor.setImage(imagen);
        xnor.setOnMousePressed(pressGate);
        xnor.setOnMouseDragged(dragGate);
        xnor.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(xnor);
+       pane.getChildren().addAll(xnor, xnor.label);
        
    }
    
@@ -145,11 +158,13 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/not.png");
        NOT not =new NOT();
        circuit.nuevaCompuerta(not);
+       not.label.setText("NOT"+Integer.toString(not.getID()));
+       not.label.setLayoutY(80);
        not.setImage(imagen);
        not.setOnMousePressed(pressGate);
        not.setOnMouseDragged(dragGate);
        not.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(not);
+       pane.getChildren().addAll(not, not.label);
        
    }
    
@@ -186,6 +201,7 @@ public class UserInterfaceController implements Initializable {
             if(t.isAltDown()){
                 circuit.delete(compuerta.getID());
                 compuerta.setImage(null);
+                compuerta.label.setText(null);
             }
             if(t.isControlDown()){
                 
@@ -226,9 +242,10 @@ public class UserInterfaceController implements Initializable {
             double offsetY = t.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            
             ((Compuerta)(t.getSource())).setTranslateX(newTranslateX);
             ((Compuerta)(t.getSource())).setTranslateY(newTranslateY);
+            ((Compuerta)(t.getSource())).label.setTranslateX(newTranslateX);
+            ((Compuerta)(t.getSource())).label.setTranslateY(newTranslateY);
         }
    
    };
@@ -237,8 +254,18 @@ public class UserInterfaceController implements Initializable {
         @Override
         public void handle(MouseEvent t) {
             if(t.isAltDown()){
-            Line linea=(Line)t.getSource();
-            pane.getChildren().removeAll(linea);
+                Line linea=(Line)t.getSource();
+                pane.getChildren().removeAll(linea);
+            }
+        }
+   };
+   EventHandler<MouseEvent> eraseLabel= new EventHandler<MouseEvent>(){
+
+        @Override
+        public void handle(MouseEvent t) {
+            if(t.isAltDown()){
+                Label label=(Label)t.getSource();
+                label.setText(null);
             }
         }
    };
@@ -252,7 +279,12 @@ public class UserInterfaceController implements Initializable {
         line.setStrokeWidth(3);
         line.setStroke(colorLine());
         line.setOnMouseClicked(eraseLine);
-        pane.getChildren().addAll(line);
+        Label label = new Label();
+        label.setText(salida+"/"+entrada);
+        label.setLayoutX(endX-50);
+        label.setLayoutY(endY);
+        label.setOnMouseClicked(eraseLabel);
+        pane.getChildren().addAll(line, label);
         line.toBack();
    }
    

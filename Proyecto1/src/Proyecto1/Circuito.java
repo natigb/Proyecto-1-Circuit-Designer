@@ -5,6 +5,8 @@
  */
 package Proyecto1;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Natalia Gonzalez
@@ -77,12 +79,14 @@ public class Circuito {
                 }
                 else{
                     if (actual.OutputGates.getSize()==0){
+                         JOptionPane.showMessageDialog(null,"Salida de la compuerta "+actual.getID()+"es: "+actual.isValor() );
                         System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
                     }
                 }
             }
             current=current.getNext();
         }
+        
     }
     
     /**

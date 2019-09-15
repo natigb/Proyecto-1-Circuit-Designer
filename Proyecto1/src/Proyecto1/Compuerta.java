@@ -5,6 +5,7 @@
  */
 package Proyecto1;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 /**
@@ -16,13 +17,13 @@ public class Compuerta extends ImageView{
     LinkedList InputGates;
     LinkedList OutputGates;
     boolean valor;
-    
+    Label label;
     
     
     public Compuerta(){
         InputGates=new LinkedList();
         OutputGates= new LinkedList();
-        
+        label= new Label();
     }
     public void operacion( ){
     }
