@@ -75,7 +75,7 @@ class OR extends Compuerta{
 }
 class NOR extends Compuerta{
     /**
-     * Operacion de una nor, si hay un true. devuelve ture
+     * Operacion de una nor, si hay un true. devuelve true
      */
     @Override
     public void operacion(){
@@ -86,7 +86,7 @@ class NOT extends Compuerta{
     
     @Override
     public void operacion(){
-        this.valor= !((boolean)InputGates.getHead().getData()); 
+        this.valor= !(InputGates.searchAmount(true)!=0); 
     }
 }
 
@@ -104,21 +104,32 @@ class XNOR extends Compuerta{
     }
 }
     
-class Verdadero extends Compuerta{
+class Entrada extends Compuerta{
     
-    public Verdadero() {
-        this.id=-1;
+    public Entrada() {
         this.valor=true;
         
+        
     }
-    
+    public void change(){
+        if (valor){
+            this.valor=false;
+        }
+        else{
+            this.valor=true;
+        }
+        System.out.println("Cambio");
+        }
+    public void setToTrue(){
+        this.valor = true;
+    }
+    public void setToFalse(){
+        this.valor = false;
+    }   
 }
-class Falso extends Compuerta{
 
-    public Falso() {
-        this.id=-2;
-        this.valor=false;
-    }
+        
     
-}
+
+
 

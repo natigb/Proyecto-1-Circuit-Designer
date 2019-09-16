@@ -7,6 +7,7 @@ package Proyecto1;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,12 +29,14 @@ public class UserInterfaceController implements Initializable {
     Circuito circuit = new Circuito();
     int entrada;
     int salida;
+    int counter;
     double startX;
     double startY;
     double endX;
     double endY;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
+    
     LinkedList colores;
     @FXML
     private Pane pane;
@@ -53,14 +56,22 @@ public class UserInterfaceController implements Initializable {
    @FXML
    public void imprimirCircuito(){
        circuit.simularCircuito();
-       circuit.circuito.printList();
-       
+       System.out.println("In "+circuit.contarEntradas());
+       System.out.println("Out "+circuit.contarSalidas());
+
        
    }
    @FXML
    public void resetPane(){
        circuit.circuito.clearList();
        pane.getChildren().clear();
+   }
+   @FXML
+   public void tabla(){
+      
+       
+
+       
    }
    
    @FXML 
@@ -168,28 +179,17 @@ public class UserInterfaceController implements Initializable {
        
    }
    
+   
    @FXML
-   public void addFalse(){
-       Image imagen=new Image("Proyecto1/img/false.png");
-       Falso falso=new Falso();
-       falso.setImage(imagen);
-       circuit.agregarEntrada(falso);
-       falso.setOnMousePressed(pressGate);
-       falso.setOnMouseDragged(dragGate);
-       falso.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(falso);
-       
-   }
-   @FXML
-   public void addTrue(){
+   public void addEntrada(){
        Image imagen=new Image("Proyecto1/img/true.png");
-       Verdadero verdadero=new Verdadero();
-       verdadero.setImage(imagen);
-       circuit.agregarEntrada(verdadero);
-       verdadero.setOnMousePressed(pressGate);
-       verdadero.setOnMouseDragged(dragGate);
-       verdadero.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(verdadero);
+       Entrada entrada=new Entrada();
+       entrada.setImage(imagen);
+       circuit.agregarEntrada(entrada);
+       entrada.setOnMousePressed(pressGate);
+       entrada.setOnMouseDragged(dragGate);
+       entrada.setOnMouseClicked(eraseGate);
+       pane.getChildren().addAll(entrada);
    
    }
    
@@ -210,7 +210,7 @@ public class UserInterfaceController implements Initializable {
                 startY= t.getSceneY()-25;
             }
             if (t.isShiftDown()){
-                if (compuerta.getID()!=-1 && compuerta.getID()!=-2 ){
+                if (compuerta.getID()>=0 ){
                     entrada = compuerta.getID();
                     circuit.conectarCompuerta(salida, entrada);
                     endX= t.getSceneX()-100;
@@ -218,11 +218,22 @@ public class UserInterfaceController implements Initializable {
                     crearLinea();
                 }
                 else{
-                    System.out.println("No se puede hacer la linea");
+                    Entrada entrada=(Entrada)(t.getSource());
+                    if (entrada.valor){
+                        Image imagen=new Image("Proyecto1/img/false.png");
+                        entrada.setImage(imagen);
+                    }
+                    else{
+                        Image imagen=new Image("Proyecto1/img/true.png");
+                        entrada.setImage(imagen);
+                    }
+                    entrada.change();
                 }
             }
+            
         }
     };
+   
    EventHandler<MouseEvent> pressGate= new EventHandler<MouseEvent>(){
 
         @Override
@@ -265,6 +276,7 @@ public class UserInterfaceController implements Initializable {
         public void handle(MouseEvent t) {
             if(t.isAltDown()){
                 Label label=(Label)t.getSource();
+                circuit.desconectarCompuerta(Integer.valueOf(label.getText().split("/")[0]),Integer.valueOf(label.getText().split("/")[1]));
                 label.setText(null);
             }
         }
@@ -286,6 +298,9 @@ public class UserInterfaceController implements Initializable {
         label.setOnMouseClicked(eraseLabel);
         pane.getChildren().addAll(line, label);
         line.toBack();
+        if (salida<0){
+            counter++;
+        }
    }
    
    public Color colorLine(){

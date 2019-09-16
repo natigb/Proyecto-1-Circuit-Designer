@@ -30,8 +30,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Inputs">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#addTrue" text="True" />
-                  <MenuItem mnemonicParsing="false" onAction="#addFalse" text="False" />
+                  <MenuItem mnemonicParsing="false" onAction="#addEntrada" text="Agregar entrada" />
                </items>
             </Menu>
       </menus>
@@ -41,7 +40,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#imprimirCircuito" prefHeight="100.0" prefWidth="100.0" text="Simular" />
-                  <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Generar Tabla" />
+                  <Button mnemonicParsing="false" onAction="#tabla" prefHeight="100.0" prefWidth="100.0" text="Generar Tabla" />
                </children>
             </VBox>
             <Pane fx:id="pane" prefHeight="576.0" prefWidth="707.0" />

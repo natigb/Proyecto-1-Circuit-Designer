@@ -13,10 +13,12 @@ import javax.swing.JOptionPane;
  */
 public class Circuito {
     LinkedList circuito;
-    int numero;
+    int numId;
+    int numIn;
 
     public Circuito() {
-        this.numero = 0;
+        this.numId = 0;
+        this.numIn = -1;
         circuito= new LinkedList();
     }
     
@@ -27,14 +29,20 @@ public class Circuito {
     public void nuevaCompuerta(Object nueva){
         
         Compuerta comp =(Compuerta)nueva;
-        comp.id=numero;
+        comp.id=numId;
         circuito.insertFirst(nueva);
-        numero++;
+        numId++;
     
     }
+    /**
+     * Agrega una entrada al circuito
+     * @param nueva Es la entrada que se debe agregar
+     */
     public void agregarEntrada(Object nueva){
-       
+        Entrada ent = (Entrada)nueva;
+        ent.id=numIn;
         circuito.insertFirst(nueva);
+        numIn--;
 
     }
     /**
@@ -57,13 +65,19 @@ public class Circuito {
     
         }
     }
-    //Sin terminar
-    public void desconectarCompuerta(int id1, int id2){
-        Compuerta compuertaA = (Compuerta)circuito.searchByID(id1);
-        Compuerta compuertaB = (Compuerta)circuito.searchByID(id2);
-        //compuertaA.InputGates.
-
+    /**
+     * Desconecta dos compuertas 
+     * @param idOut
+     * @param idIn 
+     */
+    public void desconectarCompuerta(int idOut, int idIn){
+        Compuerta compuertaA = (Compuerta)circuito.searchByID(idOut);
+        Compuerta compuertaB = (Compuerta)circuito.searchByID(idIn);
+        compuertaA.OutputGates.deleteByIndex(compuertaA.OutputGates.getIndexbyID(idIn));
+        compuertaB.InputGates.deleteByIndex(compuertaB.InputGates.getIndexbyID(idOut));
+        System.out.println("Se ha desconectado la compuerta "+idOut+"de la "+idIn);
     }
+    
     /**
      * Función para simular el circuito, actualiza los valores y luego revisa si hacen falta entradas e imprime un mensaje diciendo
      * que las llene y si no imprime el valor que tienen las compuertas de salida (Su output vací
@@ -73,13 +87,13 @@ public class Circuito {
         Node current = circuito.getHead();
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
-            if (actual.getID()!= -1 && actual.getID() != -2){
+            if (actual.getID()>=0){
                 if (actual.InputGates.getSize()<2){
                     System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
                 }
                 else{
                     if (actual.OutputGates.getSize()==0){
-                         JOptionPane.showMessageDialog(null,"Salida de la compuerta "+actual.getID()+"es: "+actual.isValor() );
+                         JOptionPane.showMessageDialog(null,"Salida de la compuerta #"+actual.getID()+" es: "+actual.isValor() );
                         System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
                     }
                 }
@@ -88,7 +102,7 @@ public class Circuito {
         }
         
     }
-    
+   
     /**
      * Función que elimina una compuerta del circuito según su Id
      * @param id de la compuerta
@@ -107,13 +121,47 @@ public class Circuito {
             actual.OutputGates.deleteByIndex(actual.OutputGates.getIndexbyID(id));
             currento=currento.getNext(); 
         }
-       
         circuito.deleteByIndex(circuito.getIndexbyID(id));
         circuito.updateGates();
+        
+       
     }
+    
    /**
-    * Función para vere que hay dentro del circuito
-    * @return La lista con todas las compuertas que fueron agregadas
+    * Retorna la cantidad de entradas del circuito
+    * @return La cantidad de entradas que tiene el circuito 
+    */
+   public int contarEntradas(){
+       int counter= 0;
+       Node current = circuito.getHead();
+       while (current != null){
+           Compuerta temporal = (Compuerta)current.getData();
+           if (temporal.id < 0){
+               counter++;
+           }
+           current = current.getNext();
+       }
+       return counter;
+   }
+   /**
+    * Retorna la cantidad de salidas del circuito
+    * @return La cantidad de salidas que tiene el circuito 
+    */
+   public int contarSalidas(){
+       int counter= 0;
+       Node current = circuito.getHead();
+       while (current != null){
+           Compuerta temporal = (Compuerta)current.getData();
+           if (temporal.OutputGates.getSize() == 0 && temporal.id > 0){
+               counter++;
+           }
+           current = current.getNext();
+       }
+       return counter;
+   }
+   /**
+    * Función para ver que hay dentro del circuito
+    * @return circuito La lista con todas las compuertas que fueron agregadas
     */
    public LinkedList getCircuito() {
         return circuito;

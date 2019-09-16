@@ -132,7 +132,7 @@ public class LinkedList{
      * Método para eliminar un elemento de una lista según el ídice que se le digite
      * @param index 
      */
-    public void deleteByIndex(int index){
+        public void deleteByIndex(int index){
         if (index==0){
             head = head.getNext();
         }
