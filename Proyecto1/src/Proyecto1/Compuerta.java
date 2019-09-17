@@ -128,6 +128,11 @@ class Entrada extends Compuerta{
     }   
 }
 
+class Guardadas extends Compuerta{
+
+
+}
+
         
     
 

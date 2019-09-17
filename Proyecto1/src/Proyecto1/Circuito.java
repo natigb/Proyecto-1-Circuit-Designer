@@ -152,7 +152,7 @@ public class Circuito {
        Node current = circuito.getHead();
        while (current != null){
            Compuerta temporal = (Compuerta)current.getData();
-           if (temporal.OutputGates.getSize() == 0 && temporal.id > 0){
+           if (temporal.OutputGates.getSize() == 0 && temporal.id >= 0){
                counter++;
            }
            current = current.getNext();

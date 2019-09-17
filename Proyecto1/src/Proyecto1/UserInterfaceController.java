@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
 
 
 /**
@@ -54,7 +55,8 @@ public class UserInterfaceController implements Initializable {
     }
     
    @FXML
-   public void imprimirCircuito(){
+   public void simularCircuito(){
+       circuit.circuito.printList();
        circuit.simularCircuito();
        System.out.println("In "+circuit.contarEntradas());
        System.out.println("Out "+circuit.contarSalidas());
@@ -64,14 +66,14 @@ public class UserInterfaceController implements Initializable {
    @FXML
    public void resetPane(){
        circuit.circuito.clearList();
+       circuit.numId = 0;
+       circuit.numIn = 0;
        pane.getChildren().clear();
    }
    @FXML
    public void tabla(){
-      
-       
-
-       
+      Tabla tabla = new Tabla(circuit);
+      tabla.crearTabla();
    }
    
    @FXML 

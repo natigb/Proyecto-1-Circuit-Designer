@@ -184,7 +184,7 @@ public class LinkedList{
      * Función para vaciar una lista
      */
     public void clearList(){
-        
+        this.head = null;
         
     }
     /**

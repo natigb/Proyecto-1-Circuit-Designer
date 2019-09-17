@@ -39,8 +39,8 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#imprimirCircuito" prefHeight="100.0" prefWidth="100.0" text="Simular" />
-                  <Button mnemonicParsing="false" onAction="#tabla" prefHeight="100.0" prefWidth="100.0" text="Generar Tabla" />
+                  <Button mnemonicParsing="false" onAction="#simularCircuito" prefHeight="100.0" prefWidth="100.0" text="Simular" />
+                  <Button mnemonicParsing="false" onAction="#tabla" prefHeight="100.0" prefWidth="100.0" text="Generar Tabla" wrapText="true" />
                </children>
             </VBox>
             <Pane fx:id="pane" prefHeight="576.0" prefWidth="707.0" />
