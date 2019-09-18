@@ -5,20 +5,15 @@
  */
 package Proyecto1;
 
-import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
+import java.util.Iterator;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -31,13 +26,9 @@ import javafx.stage.Stage;
  */
 public class Tabla{
     Circuito circuit;
-    private final TableView<value> table = new TableView();
-    value t = new value(true);
-    value f = new value(false);
-    int entradas;
+    private final TableView table = new TableView();
     public Tabla(Circuito circuit) {
         this.circuit= circuit;
-        entradas= (int)Math.pow(2,circuit.contarEntradas());
     }
     
     public void crearTabla(){
@@ -51,7 +42,7 @@ public class Tabla{
         label.setFont(new Font("Arial", 20));
         
         setInputColumns();
-        setOutputColumns();
+        //setOutputColumns();
         //table.setItems(getInputs());
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -67,15 +58,21 @@ public class Tabla{
     public void setInputColumns(){
         int counter = circuit.contarEntradas();
         while (counter != 0){
-            TableColumn<value, Boolean> Input= new TableColumn<>("I"+counter);
-            Input.setMinWidth(25);
-            Input.setCellValueFactory(new PropertyValueFactory<value, Boolean>("ent"));
+            TableColumn column= new TableColumn("I"+counter);
+            column.setMinWidth(25);
+            column.setCellValueFactory(row -> {
+            Iterator<Boolean>iterator = row.getValue().iterator();
+            for (int i =0; i<4;++i){
+                iterator.next();
+            }
+            return new SimpleBooleanProperty(iterator.next()).asObject();});
+            table.getColumns().add(column);
+            
             //TableColumn Input = new TableColumn("I"+counter);
             //Input.setMinWidth(25);
             //Input.setVisible(true);
             table.setItems(getInputs());
-            table.getColumns().add(Input);
-            this.entradas = this.entradas/2;
+            table.getColumns().add(column);
             //table.setItems(getInputs());
             
             
@@ -93,32 +90,19 @@ public class Tabla{
         }
     }
     
-    public ObservableList<value> getInputs(){
-        int counter = entradas;
+    public ObservableList<Boolean> getInputs(){
         int entradasi= (int) Math.pow(2,circuit.contarEntradas());
         //ObservableList<value> inputsf;
-        ObservableList<value> inputs = FXCollections.observableArrayList();
+        ObservableList<Boolean> inputs = FXCollections.observableArrayList();
         
-        while (entradasi!=0){
-            int counterf= counter/2;
-            int countert= counter/2;
-            while (counterf!=0){
-                inputs.add(f);
-                counterf--;
-                entradasi--;
-            }
-            while (countert!=0){
-                inputs.add(t);
-                countert--;
-                entradasi--;
-            
-           }
-            
-            
-        }
-        
+        inputs.add(false);
+        inputs.add(false);
+        inputs.add(false);
+        inputs.add(false);
+
         return inputs;
         
+    
     }
     public void setInputRows(){
         
