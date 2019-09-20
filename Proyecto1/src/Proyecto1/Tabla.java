@@ -26,11 +26,12 @@ import javafx.stage.Stage;
  * @author Nati Gonzalez
  */
 public class Tabla{
-    int conter=0;
+    int rows;
     Circuito circuit;
     private final TableView<ObservableList<Integer>> table;
     
     public Tabla(Circuito circuit) {
+        this.rows = 0;
         this.circuit= circuit;
         this.table=new TableView();
     }
@@ -101,15 +102,22 @@ public class Tabla{
     
     
     public ObservableList<Integer> getInputs(){
-        int entradas= circuit.contarEntradas()+circuit.contarSalidas();
-        
-        //ObservableList<value> inputsf;
+        int entradas= circuit.contarEntradas();
         ObservableList<Integer> inputs = FXCollections.observableArrayList();
-        while(entradas!=0){
-        inputs.addAll(conter);
-        entradas--;
+        inputs.addAll(1,2,3,4);
+        /*
+        String numB = Integer.toBinaryString(rows);
+        while (numB.length()<entradas){
+            numB= "0"+numB;
+
         }
-        conter++;
+        for(int i=0; i<numB.length(); i++){
+            inputs.add(Integer.parseInt(Character.toString(numB.charAt(i))));
+       }*/
+            
+      
+        
+        System.out.println(inputs);
         return inputs;
         
     
@@ -117,10 +125,11 @@ public class Tabla{
     
    public void setRows(){
        int entradas= (int) Math.pow(2,circuit.contarEntradas());
-       while (entradas != 0){
+       //while (entradas != 0){
            table.getItems().addAll(getInputs());
            entradas--;
-       }
+           rows++;
+       //}
    }
     
     
