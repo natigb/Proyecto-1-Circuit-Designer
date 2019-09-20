@@ -37,10 +37,11 @@
     </MenuBar>
       <HBox prefHeight="576.0" prefWidth="900.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox fx:id="vbox" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#simularCircuito" prefHeight="100.0" prefWidth="100.0" text="Simular" />
                   <Button mnemonicParsing="false" onAction="#tabla" prefHeight="100.0" prefWidth="100.0" text="Generar Tabla" wrapText="true" />
+                  <Button mnemonicParsing="false" onAction="#guardarCircuito" prefHeight="102.0" prefWidth="124.0" text="Guardar Circuito" textAlignment="CENTER" wrapText="true" />
                </children>
             </VBox>
             <Pane fx:id="pane" prefHeight="576.0" prefWidth="707.0" />

@@ -89,11 +89,12 @@ public class Circuito {
             Compuerta actual = (Compuerta)current.getData();
             if (actual.getID()>=0){
                 if (actual.InputGates.getSize()<2){
+                    JOptionPane.showMessageDialog(null,"Rellene todos los valores de entrada en la compuerta "+actual.id);
                     System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
                 }
                 else{
                     if (actual.OutputGates.getSize()==0){
-                         JOptionPane.showMessageDialog(null,"Salida de la compuerta #"+actual.getID()+" es: "+actual.isValor() );
+                        JOptionPane.showMessageDialog(null,"Salida de la compuerta #"+actual.getID()+" es: "+actual.isValor() );
                         System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
                     }
                 }

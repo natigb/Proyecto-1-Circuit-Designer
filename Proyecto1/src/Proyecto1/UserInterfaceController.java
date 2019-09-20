@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -28,6 +29,7 @@ import javafx.stage.Stage;
 public class UserInterfaceController implements Initializable {
     
     Circuito circuit = new Circuito();
+    LinkedList savedGates= new LinkedList();
     int entrada;
     int salida;
     int counter;
@@ -39,8 +41,12 @@ public class UserInterfaceController implements Initializable {
     double orgTranslateX, orgTranslateY;
     
     LinkedList colores;
+    
     @FXML
     private Pane pane;
+    
+    @FXML
+    private VBox vbox;
     
     
 
@@ -69,6 +75,18 @@ public class UserInterfaceController implements Initializable {
        circuit.numId = 0;
        circuit.numIn = 0;
        pane.getChildren().clear();
+   }
+   @FXML
+   public void guardarCircuito(){
+        int inputs = circuit.contarEntradas();
+        int outputs = circuit.contarSalidas();
+        Label label = new Label();
+        label.setText(inputs+"IN/"+outputs+"OUT");
+        savedGates.insertFirst(circuit);
+        resetPane();
+        vbox.getChildren().addAll(label);
+        savedGates.printList();
+
    }
    @FXML
    public void tabla(){
