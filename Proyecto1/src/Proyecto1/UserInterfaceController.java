@@ -86,11 +86,12 @@ public class UserInterfaceController implements Initializable {
         usrgate.label.setText(nombre+"("+inputs+"IN/"+outputs+"OUT"+")");
         usrgate.label.setLayoutY(100);
         usrgate.setImage(imagen);
-        usrgate.setOnMouseClicked(userGateEvents);
+        
         
         Group g = new Group();
         g.setOnMousePressed(pressGate);
         g.setOnMouseDragged(dragGate);
+        g.setOnMouseClicked(userGateEvents);
         g.getChildren().addAll(usrgate,usrgate.label);
         
         int y = 0;
@@ -368,13 +369,19 @@ public class UserInterfaceController implements Initializable {
         @Override
         public void handle(MouseEvent t) {
             if(t.isAltDown()){
-                USERGATE userGate=(USERGATE)(t.getSource());
-                System.out.println(" ");
-                userGate.circuito.printList();
-                System.out.println(" ");
-                userGate.inputs.printList();
-                System.out.println(" ");
-                userGate.outputs.printList();
+                Group g = (Group)(t.getSource());
+                USERGATE usrgate=(USERGATE)(g.getChildren().get(0));
+                for (int i=0;i<usrgate.getInputs().getSize();i++){
+                    circuit.delete((int)usrgate.getInputs().searchByIndex(i));
+                }
+                for (int i=0;i<usrgate.getOutputs().getSize();i++){
+                    circuit.delete((int)usrgate.getOutputs().searchByIndex(i));
+                }
+               
+                pane.getChildren().remove(g);
+                
+                
+                
             }
            
         }
