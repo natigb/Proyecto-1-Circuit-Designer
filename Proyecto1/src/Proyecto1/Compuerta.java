@@ -108,8 +108,14 @@ class Entrada extends Compuerta{
     
     public Entrada() {
         this.valor=true;
-        
-        
+    }
+    
+    @Override
+    public void operacion(){
+        if (this.InputGates.getSize()!=0){
+           Compuerta c =(Compuerta)InputGates.getHead().getData();
+           this.valor= c.valor;
+        }
     }
     public void change(){
         if (valor){
@@ -128,7 +134,67 @@ class Entrada extends Compuerta{
     }   
 }
 
-class Guardadas extends Compuerta{
+class USERGATE extends Compuerta{
+    LinkedList circuito;
+    LinkedList inputs;
+    LinkedList outputs;
+
+    public USERGATE(LinkedList circuito) {
+        this.circuito = circuito;
+        this.inputs = inputIDs();
+        this.outputs = outputIDs();
+
+    }
+    
+    public LinkedList inputIDs(){
+        LinkedList inputIds= new LinkedList();
+        Node current = circuito.getHead();
+        while (current!=null){
+            Compuerta compuerta = (Compuerta)current.getData();
+            if (compuerta.getID()<0 ){
+                inputIds.insertFirst(compuerta.getID());
+            }
+            current= current.getNext();
+        }
+        return inputIds;
+    }
+    public LinkedList outputIDs(){
+        LinkedList outputIds= new LinkedList();
+        Node current = circuito.getHead();
+        while (current!=null){
+            Compuerta compuerta = (Compuerta)current.getData();
+            if (compuerta.getID()>=0 && compuerta.OutputGates.getSize()==0){
+                outputIds.insertFirst(compuerta.getID());
+            }
+            current= current.getNext();
+        }
+        return outputIds;
+    }
+    public LinkedList getCircuito() {
+        return circuito;
+    }
+
+    public void setCircuito(LinkedList circuito) {
+        this.circuito = circuito;
+    }
+
+    public LinkedList getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(LinkedList inputs) {
+        this.inputs = inputs;
+    }
+
+    public LinkedList getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(LinkedList outputs) {
+        this.outputs = outputs;
+    }
+    
+    
 
 
 }

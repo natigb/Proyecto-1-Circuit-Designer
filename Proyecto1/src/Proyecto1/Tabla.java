@@ -104,8 +104,7 @@ public class Tabla{
     public ObservableList<Integer> getInputs(){
         int entradas= circuit.contarEntradas();
         ObservableList<Integer> inputs = FXCollections.observableArrayList();
-        inputs.addAll(1,2,3,4);
-        /*
+        
         String numB = Integer.toBinaryString(rows);
         while (numB.length()<entradas){
             numB= "0"+numB;
@@ -113,7 +112,7 @@ public class Tabla{
         }
         for(int i=0; i<numB.length(); i++){
             inputs.add(Integer.parseInt(Character.toString(numB.charAt(i))));
-       }*/
+       }
             
       
         
@@ -125,11 +124,12 @@ public class Tabla{
     
    public void setRows(){
        int entradas= (int) Math.pow(2,circuit.contarEntradas());
-       //while (entradas != 0){
+       while (entradas != 0){
+           
            table.getItems().addAll(getInputs());
            entradas--;
            rows++;
-       //}
+       }
    }
     
     

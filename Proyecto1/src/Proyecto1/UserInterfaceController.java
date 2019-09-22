@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -39,7 +41,6 @@ public class UserInterfaceController implements Initializable {
     double endY;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
-    
     LinkedList colores;
     
     @FXML
@@ -64,28 +65,56 @@ public class UserInterfaceController implements Initializable {
    public void simularCircuito(){
        circuit.circuito.printList();
        circuit.simularCircuito();
-       System.out.println("In "+circuit.contarEntradas());
-       System.out.println("Out "+circuit.contarSalidas());
+       circuit.outputs.printList();
+       circuit.inputs.printList();
 
        
    }
    @FXML
    public void resetPane(){
-       circuit.circuito.clearList();
-       circuit.numId = 0;
-       circuit.numIn = 0;
        pane.getChildren().clear();
    }
    @FXML
    public void guardarCircuito(){
-        int inputs = circuit.contarEntradas();
-        int outputs = circuit.contarSalidas();
-        Label label = new Label();
-        label.setText(inputs+"IN/"+outputs+"OUT");
-        savedGates.insertFirst(circuit);
         resetPane();
-        vbox.getChildren().addAll(label);
-        savedGates.printList();
+        
+        Image imagen=new Image("Proyecto1/img/new.png");
+        USERGATE usrgate =new USERGATE(circuit.circuito);
+        int inputs= usrgate.inputs.getSize();
+        int outputs = usrgate.outputs.getSize();
+        String nombre = JOptionPane.showInputDialog("Nombre del circuito");
+        usrgate.label.setText(nombre+"("+inputs+"IN/"+outputs+"OUT"+")");
+        usrgate.label.setLayoutY(100);
+        usrgate.setImage(imagen);
+        usrgate.setOnMouseClicked(userGateEvents);
+        
+        Group g = new Group();
+        g.setOnMousePressed(pressGate);
+        g.setOnMouseDragged(dragGate);
+        g.getChildren().addAll(usrgate,usrgate.label);
+        
+        int y = 0;
+        for (int i=0; i< inputs;i++){
+            Label label = new Label(Integer.toString((int)usrgate.inputs.searchByIndex(i)));
+            label.setLayoutY(y);
+            label.setOnMouseClicked(userLabelEvents);
+            g.getChildren().add(label);
+            y+=10;
+        }
+        y=0;
+        for (int i=0; i< outputs;i++){
+            Label label = new Label(Integer.toString((int)usrgate.outputs.searchByIndex(i)));
+            label.setLayoutY(y);
+            label.setLayoutX(80);
+            label.setOnMouseClicked(userLabelEvents);
+            g.getChildren().add(label);
+            y+=10;
+        }
+        
+        
+        pane.getChildren().addAll(g);  
+        
+        
 
    }
    @FXML
@@ -102,10 +131,14 @@ public class UserInterfaceController implements Initializable {
        and.label.setText("AND"+Integer.toString(and.getID()));
        and.label.setLayoutY(80);
        and.setImage(imagen);
-       and.setOnMousePressed(pressGate);
-       and.setOnMouseDragged(dragGate);
        and.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(and,and.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(and,and.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
        
    }
@@ -118,10 +151,14 @@ public class UserInterfaceController implements Initializable {
        nand.label.setText("NAND"+Integer.toString(nand.getID()));
        nand.label.setLayoutY(80);
        nand.setImage(imagen);
-       nand.setOnMousePressed(pressGate);
-       nand.setOnMouseDragged(dragGate);
        nand.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(nand,nand.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(nand,nand.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
    }
    
@@ -133,10 +170,14 @@ public class UserInterfaceController implements Initializable {
        or.label.setText("OR"+Integer.toString(or.getID()));
        or.label.setLayoutY(80);
        or.setImage(imagen);
-       or.setOnMousePressed(pressGate);
-       or.setOnMouseDragged(dragGate);
        or.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(or,or.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(or,or.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
    }
    @FXML 
@@ -147,10 +188,14 @@ public class UserInterfaceController implements Initializable {
        nor.label.setText("NOR"+Integer.toString(nor.getID()));
        nor.label.setLayoutY(80);
        nor.setImage(imagen);
-       nor.setOnMousePressed(pressGate);
-       nor.setOnMouseDragged(dragGate);
        nor.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(nor,nor.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(nor,nor.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
    }
    
@@ -162,10 +207,14 @@ public class UserInterfaceController implements Initializable {
        xor.label.setText("XOR"+Integer.toString(xor.getID()));
        xor.label.setLayoutY(80);
        xor.setImage(imagen);
-       xor.setOnMousePressed(pressGate);
-       xor.setOnMouseDragged(dragGate);
        xor.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(xor, xor.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(xor,xor.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
    }
    
@@ -177,10 +226,14 @@ public class UserInterfaceController implements Initializable {
        xnor.label.setText("XNOR"+Integer.toString(xnor.getID()));
        xnor.label.setLayoutY(80);
        xnor.setImage(imagen);
-       xnor.setOnMousePressed(pressGate);
-       xnor.setOnMouseDragged(dragGate);
        xnor.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(xnor, xnor.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(xnor,xnor.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
    }
    
@@ -192,10 +245,14 @@ public class UserInterfaceController implements Initializable {
        not.label.setText("NOT"+Integer.toString(not.getID()));
        not.label.setLayoutY(80);
        not.setImage(imagen);
-       not.setOnMousePressed(pressGate);
-       not.setOnMouseDragged(dragGate);
        not.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(not, not.label);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(not,not.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
        
    }
    
@@ -203,13 +260,19 @@ public class UserInterfaceController implements Initializable {
    @FXML
    public void addEntrada(){
        Image imagen=new Image("Proyecto1/img/true.png");
-       Entrada entrada=new Entrada();
-       entrada.setImage(imagen);
-       circuit.agregarEntrada(entrada);
-       entrada.setOnMousePressed(pressGate);
-       entrada.setOnMouseDragged(dragGate);
-       entrada.setOnMouseClicked(eraseGate);
-       pane.getChildren().addAll(entrada);
+       Entrada input=new Entrada();
+       input.setImage(imagen);
+       circuit.agregarEntrada(input);
+       input.label.setText("i<"+Integer.toString(input.getID())+">");
+       input.label.setLayoutY(40);
+       input.setOnMouseClicked(eraseGate);
+       Group g = new Group();
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       g.getChildren().addAll(input,input.label);
+       g.setOnMousePressed(pressGate);
+       g.setOnMouseDragged(dragGate);
+       pane.getChildren().addAll(g);
    
    }
    
@@ -260,8 +323,8 @@ public class UserInterfaceController implements Initializable {
         public void handle(MouseEvent t) {
             orgSceneX = t.getSceneX();
             orgSceneY = t.getSceneY();
-            orgTranslateX=((Compuerta)(t.getSource())).getTranslateX();
-            orgTranslateY=((Compuerta)(t.getSource())).getTranslateY();
+            orgTranslateX=((Group)(t.getSource())).getTranslateX();
+            orgTranslateY=((Group)(t.getSource())).getTranslateY();
            
         }
     };
@@ -273,10 +336,9 @@ public class UserInterfaceController implements Initializable {
             double offsetY = t.getSceneY() - orgSceneY;
             double newTranslateX = orgTranslateX + offsetX;
             double newTranslateY = orgTranslateY + offsetY;
-            ((Compuerta)(t.getSource())).setTranslateX(newTranslateX);
-            ((Compuerta)(t.getSource())).setTranslateY(newTranslateY);
-            ((Compuerta)(t.getSource())).label.setTranslateX(newTranslateX);
-            ((Compuerta)(t.getSource())).label.setTranslateY(newTranslateY);
+            ((Group)(t.getSource())).setTranslateX(newTranslateX);
+            ((Group)(t.getSource())).setTranslateY(newTranslateY);
+            
         }
    
    };
@@ -301,7 +363,43 @@ public class UserInterfaceController implements Initializable {
             }
         }
    };
-   
+   EventHandler<MouseEvent> userGateEvents= new EventHandler<MouseEvent>(){
+
+        @Override
+        public void handle(MouseEvent t) {
+            if(t.isAltDown()){
+                USERGATE userGate=(USERGATE)(t.getSource());
+                System.out.println(" ");
+                userGate.circuito.printList();
+                System.out.println(" ");
+                userGate.inputs.printList();
+                System.out.println(" ");
+                userGate.outputs.printList();
+            }
+           
+        }
+    };
+   EventHandler<MouseEvent> userLabelEvents= new EventHandler<MouseEvent>(){
+        @Override
+        public void handle(MouseEvent t){
+            Label label = (Label)t.getSource();
+            int in = Integer.parseInt(label.getText());
+            if (t.isShiftDown() && in<0){
+                entrada = in;
+                circuit.conectarCompuerta(salida, entrada);
+                endX= t.getSceneX();
+                endY = t.getSceneY();
+                crearLinea();
+            }
+            if (t.isControlDown() && in>=0){
+                salida= in;
+                startX= t.getSceneX();
+                startY= t.getSceneY();
+                
+            }
+            
+        } 
+   };
    public void crearLinea(){
         Line line=new Line();
         line.setStartX(startX); 

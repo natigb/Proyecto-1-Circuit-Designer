@@ -25,7 +25,7 @@ public class MainClass extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
         
         stage.setTitle("CIRCUIT DESIGNER");
-        stage.setScene(new Scene(root, 900, 600));
+        stage.setScene(new Scene(root, 1300, 650));
         stage.show();
     
     }

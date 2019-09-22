@@ -13,13 +13,17 @@ import javax.swing.JOptionPane;
  */
 public class Circuito {
     LinkedList circuito;
+    LinkedList inputs;
+    LinkedList outputs;
     int numId;
     int numIn;
 
     public Circuito() {
         this.numId = 0;
         this.numIn = -1;
-        circuito= new LinkedList();
+        circuito = new LinkedList();
+        outputs = new LinkedList();
+        inputs = new LinkedList();
     }
     
     /**
@@ -84,6 +88,9 @@ public class Circuito {
      */
     public void simularCircuito(){
         circuito.updateGates();
+        LinkedList inputstemp = new LinkedList();
+        LinkedList outputstemp = new LinkedList();
+        
         Node current = circuito.getHead();
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
@@ -96,13 +103,21 @@ public class Circuito {
                     if (actual.OutputGates.getSize()==0){
                         JOptionPane.showMessageDialog(null,"Salida de la compuerta #"+actual.getID()+" es: "+actual.isValor() );
                         System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
+                        outputstemp.insertFirst(actual.getID());
                     }
                 }
             }
+            else{
+                inputstemp.insertFirst(actual.getID());
+            }
             current=current.getNext();
         }
+        this.inputs= inputstemp;
+        this.outputs= outputstemp;
         
     }
+    
+    
    
     /**
      * Función que elimina una compuerta del circuito según su Id
