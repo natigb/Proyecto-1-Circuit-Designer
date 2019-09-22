@@ -56,10 +56,10 @@ public class Circuito {
      * @param idIn 
      */
     public void conectarCompuerta(int idOut, int idIn){
-        if (idIn==-1 || idIn==-2){
-            System.out.println("Solo pueden ser inputs");
-        }
-        else{
+        //if (idIn==-1 || idIn==-2){
+           // System.out.println("Solo pueden ser inputs");
+        //}
+       // else{
             Compuerta salida= (Compuerta)circuito.searchByID(idOut);
             Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
             entrada.InputGates.insertFirst(salida);
@@ -67,7 +67,7 @@ public class Circuito {
             circuito.updateGates();   
             System.out.println("Compuerta "+idOut+" conectada con "+idIn);
     
-        }
+        //}
     }
     /**
      * Desconecta dos compuertas 
@@ -88,8 +88,6 @@ public class Circuito {
      */
     public void simularCircuito(){
         circuito.updateGates();
-        LinkedList inputstemp = new LinkedList();
-        LinkedList outputstemp = new LinkedList();
         
         Node current = circuito.getHead();
         while (current != null){
@@ -103,17 +101,13 @@ public class Circuito {
                     if (actual.OutputGates.getSize()==0){
                         JOptionPane.showMessageDialog(null,"Salida de la compuerta #"+actual.getID()+" es: "+actual.isValor() );
                         System.out.println("Salida de la compuerta "+actual.getID()+"es: "+actual.isValor());
-                        outputstemp.insertFirst(actual.getID());
+                        
                     }
                 }
             }
-            else{
-                inputstemp.insertFirst(actual.getID());
-            }
+            
             current=current.getNext();
         }
-        this.inputs= inputstemp;
-        this.outputs= outputstemp;
         
     }
     

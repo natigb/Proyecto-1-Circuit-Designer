@@ -387,14 +387,14 @@ public class UserInterfaceController implements Initializable {
             if (t.isShiftDown() && in<0){
                 entrada = in;
                 circuit.conectarCompuerta(salida, entrada);
-                endX= t.getSceneX();
-                endY = t.getSceneY();
+                endX= t.getSceneX()-100;
+                endY = t.getSceneY()-25;
                 crearLinea();
             }
             if (t.isControlDown() && in>=0){
                 salida= in;
-                startX= t.getSceneX();
-                startY= t.getSceneY();
+                startX= t.getSceneX()-100;
+                startY= t.getSceneY()-25;
                 
             }
             

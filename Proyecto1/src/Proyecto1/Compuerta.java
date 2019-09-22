@@ -151,7 +151,7 @@ class USERGATE extends Compuerta{
         Node current = circuito.getHead();
         while (current!=null){
             Compuerta compuerta = (Compuerta)current.getData();
-            if (compuerta.getID()<0 ){
+            if (compuerta.getID()<0 && compuerta.InputGates.getSize()==0){
                 inputIds.insertFirst(compuerta.getID());
             }
             current= current.getNext();
