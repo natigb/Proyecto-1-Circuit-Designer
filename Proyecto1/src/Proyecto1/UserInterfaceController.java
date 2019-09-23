@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -32,6 +33,7 @@ public class UserInterfaceController implements Initializable {
     
     Circuito circuit = new Circuito();
     LinkedList savedGates= new LinkedList();
+    int savedGatesNum = 0;
     int entrada;
     int salida;
     int counter;
@@ -41,7 +43,6 @@ public class UserInterfaceController implements Initializable {
     double endY;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
-    LinkedList colores;
     
     @FXML
     private Pane pane;
@@ -63,11 +64,11 @@ public class UserInterfaceController implements Initializable {
     
    @FXML
    public void simularCircuito(){
+       
        circuit.circuito.printList();
        circuit.simularCircuito();
        circuit.outputs.printList();
        circuit.inputs.printList();
-
        
    }
    @FXML
@@ -93,7 +94,7 @@ public class UserInterfaceController implements Initializable {
         g.setOnMouseDragged(dragGate);
         g.setOnMouseClicked(userGateEvents);
         g.getChildren().addAll(usrgate,usrgate.label);
-        
+        savedGates.insertLast(g);
         int y = 0;
         for (int i=0; i< inputs;i++){
             Label label = new Label(Integer.toString((int)usrgate.inputs.searchByIndex(i)));
@@ -111,10 +112,13 @@ public class UserInterfaceController implements Initializable {
             g.getChildren().add(label);
             y+=10;
         }
-        
-        
         pane.getChildren().addAll(g);  
         
+        Label gateNumber = new Label (savedGatesNum+": "+nombre);
+        gateNumber.setFont(new Font("Arial", 15));
+        gateNumber.setOnMouseClicked(createUserGate);
+        vbox.getChildren().add(gateNumber);
+        savedGatesNum++;
         
 
    }
@@ -122,6 +126,9 @@ public class UserInterfaceController implements Initializable {
    public void tabla(){
       Tabla tabla = new Tabla(circuit);
       tabla.crearTabla();
+        
+        
+        
    }
    
    @FXML 
@@ -404,6 +411,57 @@ public class UserInterfaceController implements Initializable {
                 startY= t.getSceneY()-25;
                 
             }
+            
+        } 
+   };
+   
+   EventHandler<MouseEvent> createUserGate= new EventHandler<MouseEvent>(){
+        @Override
+        public void handle(MouseEvent t){
+            Label l = (Label)(t.getSource());
+            int groupIndex = Integer.parseInt(Character.toString(l.getText().charAt(0)));
+            Group savedGroup = (Group)savedGates.searchByIndex(groupIndex);
+            USERGATE savedGate=(USERGATE)savedGroup.getChildren().get(0);
+            
+            Group g = new Group();
+            
+            USERGATE usrgate = new USERGATE(circuit.agregarCircuito(savedGate.circuito));
+            Image imagen=new Image("Proyecto1/img/new.png");
+            savedGate.circuito.printList();
+            System.out.println(" ");
+            usrgate.circuito.printList();
+            
+            int inputs= usrgate.inputs.getSize();
+            int outputs = usrgate.outputs.getSize();
+
+            usrgate.label.setText(savedGate.label.getText());
+            usrgate.label.setLayoutY(100);
+            usrgate.setImage(imagen);
+
+            g.setOnMousePressed(pressGate);
+            g.setOnMouseDragged(dragGate);
+            g.setOnMouseClicked(userGateEvents);
+            g.getChildren().addAll(usrgate,usrgate.label);
+
+            int y = 0;
+            for (int i=0; i< inputs;i++){
+                Label label = new Label(Integer.toString((int)usrgate.inputs.searchByIndex(i)));
+                label.setLayoutY(y);
+                label.setOnMouseClicked(userLabelEvents);
+                g.getChildren().add(label);
+                y+=10;
+            }
+            y=0;
+            for (int i=0; i< outputs;i++){
+                Label label = new Label(Integer.toString((int)usrgate.outputs.searchByIndex(i)));
+                label.setLayoutY(y);
+                label.setLayoutX(80);
+                label.setOnMouseClicked(userLabelEvents);
+                g.getChildren().add(label);
+                y+=10;
+            }
+            pane.getChildren().addAll(g);  
+           
             
         } 
    };

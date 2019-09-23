@@ -158,6 +158,7 @@ class USERGATE extends Compuerta{
         }
         return inputIds;
     }
+    
     public LinkedList outputIDs(){
         LinkedList outputIds= new LinkedList();
         Node current = circuito.getHead();

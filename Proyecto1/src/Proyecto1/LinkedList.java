@@ -37,6 +37,26 @@ public class LinkedList{
         this.size++;
 
     }
+    /**
+     * Función qe crea un nodo a partir de los datos que se ingresen y lo pone al inicio de la lista
+     * @param data 
+     */
+    public void insertLast(Object data){
+        if (head==null){
+            head = new Node(data);
+        }
+        else{
+            Node current = head;
+            Node newNode = new Node(data);
+            while (current.getNext()!= null){
+                current= current.getNext();
+            }
+            current.setNext(newNode);
+        }
+        this.size++;
+
+    }
+    
    
     /**
      * Función que elimina el primer nodo de una lista

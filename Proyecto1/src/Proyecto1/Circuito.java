@@ -49,6 +49,20 @@ public class Circuito {
         numIn--;
 
     }
+    public LinkedList agregarCircuito (LinkedList list){
+        Node current = list.getHead();
+        while (current!=null){
+            Compuerta compuerta = (Compuerta)current.getData();
+            if (compuerta.id<0){
+                agregarEntrada(compuerta);
+            }
+            else{
+                nuevaCompuerta(compuerta);
+            }
+            current = current.getNext();
+        }
+        return list;
+    }
     /**
      * Método que recibe las IDs de las compuertas y guarda las conexiones entre ellas, toma el output y 
      * lo guarda en los inputs de la otra y viceversa
@@ -143,11 +157,13 @@ public class Circuito {
     */
    public int contarEntradas(){
        int counter= 0;
+       inputs.clearList();
        Node current = circuito.getHead();
        while (current != null){
            Compuerta temporal = (Compuerta)current.getData();
-           if (temporal.id < 0){
+           if (temporal.id < 0 && temporal.InputGates.getSize()==0){
                counter++;
+               inputs.insertFirst(temporal.id);
            }
            current = current.getNext();
        }
@@ -159,15 +175,46 @@ public class Circuito {
     */
    public int contarSalidas(){
        int counter= 0;
+       outputs.clearList();
        Node current = circuito.getHead();
        while (current != null){
            Compuerta temporal = (Compuerta)current.getData();
            if (temporal.OutputGates.getSize() == 0 && temporal.id >= 0){
                counter++;
+               outputs.insertLast(temporal.valor);
            }
            current = current.getNext();
        }
        return counter;
+   }
+   
+   public void changeInputs(LinkedList newInputs){
+       int i = 0;
+       LinkedList inIDs = getInputIDs(); 
+       while (i<newInputs.getSize()){
+           Entrada entrada = (Entrada)circuito.searchByID((int)inIDs.searchByIndex(i));
+           Boolean valor = (Boolean)newInputs.searchByIndex(i);
+           if (valor){
+               entrada.setToTrue();
+           }
+           else{
+               entrada.setToFalse();
+           }
+           i++;
+                   
+       }
+       
+      
+   }
+   public LinkedList getInputIDs(){
+       contarEntradas();
+       return inputs;
+   }
+   
+   public LinkedList getOutputValues(){
+       circuito.updateGates();
+       contarSalidas();
+       return outputs;
    }
    /**
     * Función para ver que hay dentro del circuito

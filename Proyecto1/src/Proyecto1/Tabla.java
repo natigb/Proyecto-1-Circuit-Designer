@@ -27,6 +27,7 @@ import javafx.stage.Stage;
  */
 public class Tabla{
     int rows;
+    int columna =0;
     Circuito circuit;
     private final TableView<ObservableList<Integer>> table;
     
@@ -48,9 +49,10 @@ public class Tabla{
         table.setMaxSize(500, 500);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
         setColumns();
+        
         setRows();
         
-        
+       
         //setOutputColumns();
         //table.setItems(getInputs());
         final VBox vbox = new VBox();
@@ -83,15 +85,16 @@ public class Tabla{
             }
             column.setMinWidth(25);
             //column.setCellValueFactory(new PropertyValueFactory<Boolean, Boolean>("ent"+ents));
+            int columnaActual =columna;
             column.setCellValueFactory(row -> {
             Iterator<Integer>iterator = row.getValue().iterator();
-            for (int i =0; i<columnas;++i){
+            for (int i =0; i<columnaActual;++i){
                 iterator.next();
             }
             return new SimpleIntegerProperty(iterator.next()).asObject();});
             
             table.getColumns().addAll(column);
-
+            columna++;
             counter--;
             
         }
@@ -103,19 +106,32 @@ public class Tabla{
     
     public ObservableList<Integer> getInputs(){
         int entradas= circuit.contarEntradas();
+        LinkedList ins = new LinkedList();
         ObservableList<Integer> inputs = FXCollections.observableArrayList();
         
         String numB = Integer.toBinaryString(rows);
         while (numB.length()<entradas){
             numB= "0"+numB;
-
         }
         for(int i=0; i<numB.length(); i++){
             inputs.add(Integer.parseInt(Character.toString(numB.charAt(i))));
-       }
-            
-      
+            if (Integer.parseInt(Character.toString(numB.charAt(i)))== 0){
+                ins.insertLast(false);
+            }
+            else{ins.insertLast(true);}
+        }
+        circuit.changeInputs(ins);
         
+        LinkedList outs = circuit.getOutputValues();
+        int out =0;
+        while(out < circuit.contarSalidas()){
+            if ((Boolean)outs.searchByIndex(out)){
+                inputs.add(1);
+            }
+            else {inputs.add(0);}
+            out++;
+        }
+        outs.printList();
         System.out.println(inputs);
         return inputs;
         
