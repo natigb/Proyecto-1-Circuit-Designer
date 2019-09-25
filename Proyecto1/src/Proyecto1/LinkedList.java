@@ -188,18 +188,7 @@ public class LinkedList{
 
     
     
-    /**
-     * Función para actualizar todos los valores de todas las compuertas que tiene un circuito
-     */
-    public void updateGates(){
-        
-        Node current = head;
-        while (current != null){
-            Compuerta actual = (Compuerta)current.getData();
-            actual.operacion();
-            current = current.getNext();
-        }
-    }
+    
     /**
      * Función para vaciar una lista
      */

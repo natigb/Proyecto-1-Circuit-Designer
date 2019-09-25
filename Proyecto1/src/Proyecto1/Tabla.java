@@ -48,13 +48,11 @@ public class Tabla{
         label.setFont(new Font("Arial", 20));
         table.setMaxSize(500, 500);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
+       
         setColumns();
         
         setRows();
-        
        
-        //setOutputColumns();
-        //table.setItems(getInputs());
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
@@ -65,26 +63,29 @@ public class Tabla{
         stage.setScene(scene);
         stage.show();
     }
-
+    
     public void setColumns(){
         int counter = circuit.contarEntradas()+circuit.contarSalidas();
-        int columnas=circuit.contarEntradas()+circuit.contarSalidas()-1;
         int counterIn = circuit.contarEntradas();
 
         int ents =0;
         int sals =0;
+        LinkedList inputIds = circuit.getInputIDs();
+        LinkedList outputIds = circuit.getOutputIDs();
         while (counter!=0){
             TableColumn<ObservableList<Integer>,Integer> column= new TableColumn();
             if (counterIn!=0){
-                column.setText("I"+ents);
+                int numIn = (int)inputIds.searchByIndex(ents);
+                column.setText("i<"+numIn+">");
                 ents++;
                 counterIn--;}
             else{
-                column.setText("O"+sals);
+                int numOut = (int)outputIds.searchByIndex(sals);
+                System.out.println(outputIds);
+                column.setText("o<"+numOut+">");
                 sals++;
             }
             column.setMinWidth(25);
-            //column.setCellValueFactory(new PropertyValueFactory<Boolean, Boolean>("ent"+ents));
             int columnaActual =columna;
             column.setCellValueFactory(row -> {
             Iterator<Integer>iterator = row.getValue().iterator();
@@ -98,9 +99,7 @@ public class Tabla{
             counter--;
             
         }
-                    //table.setItems(getInputs());
        
-
     }
     
     
@@ -131,8 +130,8 @@ public class Tabla{
             else {inputs.add(0);}
             out++;
         }
-        outs.printList();
-        System.out.println(inputs);
+        //outs.printList();
+        //System.out.println(inputs);
         return inputs;
         
     

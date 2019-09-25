@@ -15,6 +15,7 @@ public class Circuito {
     LinkedList circuito;
     LinkedList inputs;
     LinkedList outputs;
+    LinkedList outputIds;
     int numId;
     int numIn;
 
@@ -22,8 +23,10 @@ public class Circuito {
         this.numId = 0;
         this.numIn = -1;
         circuito = new LinkedList();
+        
         outputs = new LinkedList();
         inputs = new LinkedList();
+        outputIds = new LinkedList();
     }
     
     /**
@@ -78,7 +81,7 @@ public class Circuito {
             Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
             entrada.InputGates.insertFirst(salida);
             salida.OutputGates.insertFirst(entrada);
-            circuito.updateGates();   
+            updateGates();   
             System.out.println("Compuerta "+idOut+" conectada con "+idIn);
     
         //}
@@ -101,7 +104,7 @@ public class Circuito {
      * que las llene y si no imprime el valor que tienen las compuertas de salida (Su output vací
      */
     public void simularCircuito(){
-        circuito.updateGates();
+        updateGates();
         
         Node current = circuito.getHead();
         while (current != null){
@@ -146,7 +149,7 @@ public class Circuito {
             currento=currento.getNext(); 
         }
         circuito.deleteByIndex(circuito.getIndexbyID(id));
-        circuito.updateGates();
+        updateGates();
         
        
     }
@@ -176,17 +179,32 @@ public class Circuito {
    public int contarSalidas(){
        int counter= 0;
        outputs.clearList();
+       outputIds.clearList();
        Node current = circuito.getHead();
        while (current != null){
            Compuerta temporal = (Compuerta)current.getData();
            if (temporal.OutputGates.getSize() == 0 && temporal.id >= 0){
                counter++;
                outputs.insertLast(temporal.valor);
+               outputIds.insertLast(temporal.getID());
            }
+           updateGates();
            current = current.getNext();
        }
        return counter;
    }
+   /**
+     * Función para actualizar todos los valores de todas las compuertas que tiene un circuito
+     */
+    public void updateGates(){
+        
+        Node current = circuito.getHead();
+        while (current != null){
+            Compuerta actual = (Compuerta)current.getData();
+            actual.operacion();
+            current = current.getNext();
+        }
+    }
    
    public void changeInputs(LinkedList newInputs){
        int i = 0;
@@ -210,9 +228,12 @@ public class Circuito {
        contarEntradas();
        return inputs;
    }
-   
+   public LinkedList getOutputIDs(){
+       contarSalidas();
+       return outputIds;
+   }
    public LinkedList getOutputValues(){
-       circuito.updateGates();
+       updateGates();
        contarSalidas();
        return outputs;
    }
