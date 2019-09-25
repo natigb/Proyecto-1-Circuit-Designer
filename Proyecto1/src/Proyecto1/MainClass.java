@@ -23,9 +23,10 @@ public class MainClass extends Application {
     public void start(Stage stage) throws Exception {
         
         Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
-        
+        Scene scene = new Scene(root,1300,650);
+        scene.getStylesheets().add("Proyecto1/StyleSheet.css");
         stage.setTitle("CIRCUIT DESIGNER");
-        stage.setScene(new Scene(root, 1300, 650));
+        stage.setScene(scene);
         stage.show();
     
     }

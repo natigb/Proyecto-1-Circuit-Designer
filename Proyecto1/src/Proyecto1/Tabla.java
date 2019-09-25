@@ -81,7 +81,6 @@ public class Tabla{
                 counterIn--;}
             else{
                 int numOut = (int)outputIds.searchByIndex(sals);
-                System.out.println(outputIds);
                 column.setText("o<"+numOut+">");
                 sals++;
             }

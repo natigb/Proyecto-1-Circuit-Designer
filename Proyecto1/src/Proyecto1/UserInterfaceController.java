@@ -13,8 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -50,6 +52,12 @@ public class UserInterfaceController implements Initializable {
     @FXML
     private VBox vbox;
     
+    @FXML
+    private AnchorPane anchorpane;
+    
+    @FXML
+    private ScrollPane scrollpane;
+    
     
 
     /**
@@ -60,6 +68,8 @@ public class UserInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        anchorpane.getStyleClass().add("anchorpane");
+        scrollpane.getStyleClass().addAll("scroll-pane","scroll-bar");
     }
     
    @FXML
@@ -272,7 +282,8 @@ public class UserInterfaceController implements Initializable {
        input.setImage(imagen);
        circuit.agregarEntrada(input);
        input.label.setText("i<"+Integer.toString(input.getID())+">");
-       input.label.setLayoutY(40);
+       input.label.setLayoutY(45);
+       input.label.setLayoutX(8);
        input.setOnMouseClicked(eraseGate);
        Group g = new Group();
        g.setOnMousePressed(pressGate);
@@ -478,6 +489,8 @@ public class UserInterfaceController implements Initializable {
         label.setText(salida+"/"+entrada);
         label.setLayoutX(endX-50);
         label.setLayoutY(endY);
+        label.setFont(new Font("Simular",15));
+        label.setTextFill(Color.web("white", 0.8));
         label.setOnMouseClicked(eraseLabel);
         pane.getChildren().addAll(line, label);
         line.toBack();

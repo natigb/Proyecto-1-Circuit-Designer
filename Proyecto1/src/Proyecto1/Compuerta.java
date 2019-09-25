@@ -7,6 +7,9 @@ package Proyecto1;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -24,6 +27,10 @@ public class Compuerta extends ImageView{
         InputGates=new LinkedList();
         OutputGates= new LinkedList();
         label= new Label();
+        label.setFont(new Font("Simular",15));
+        label.setTextFill(Color.web("#ffde00", 0.8));
+
+        
     }
     public void operacion( ){
     }
