@@ -33,18 +33,18 @@ import javax.swing.JOptionPane;
  */
 public class UserInterfaceController implements Initializable {
     
-    Circuito circuit = new Circuito();
-    LinkedList savedGates= new LinkedList();
-    int savedGatesNum = 0;
-    int entrada;
-    int salida;
-    int counter;
-    double startX;
-    double startY;
-    double endX;
-    double endY;
-    double orgSceneX, orgSceneY;
-    double orgTranslateX, orgTranslateY;
+    private Circuito circuit = new Circuito();
+    private LinkedList savedGates= new LinkedList();
+    private int savedGatesNum = 0;
+    private int entrada;
+    private int salida;
+    private int counter;
+    private double startX;
+    private double startY;
+    private double endX;
+    private double endY;
+    private double orgSceneX, orgSceneY;
+    private double orgTranslateX, orgTranslateY;
     
     @FXML
     private Pane pane;
@@ -71,7 +71,7 @@ public class UserInterfaceController implements Initializable {
         anchorpane.getStyleClass().add("anchorpane");
         scrollpane.getStyleClass().addAll("scroll-pane","scroll-bar");
     }
-    
+   
    @FXML
    public void simularCircuito(){
        
@@ -110,6 +110,8 @@ public class UserInterfaceController implements Initializable {
             Label label = new Label(Integer.toString((int)usrgate.inputs.searchByIndex(i)));
             label.setLayoutY(y);
             label.setOnMouseClicked(userLabelEvents);
+            label.setFont(new Font("Simular",15));
+            label.setTextFill(Color.web("#ffde00", 0.8));
             g.getChildren().add(label);
             y+=10;
         }
@@ -119,15 +121,19 @@ public class UserInterfaceController implements Initializable {
             label.setLayoutY(y);
             label.setLayoutX(80);
             label.setOnMouseClicked(userLabelEvents);
+            label.setFont(new Font("Simular",15));
+            label.setTextFill(Color.web("#ffde00", 0.8));
             g.getChildren().add(label);
             y+=10;
         }
         pane.getChildren().addAll(g);  
         
         Label gateNumber = new Label (savedGatesNum+": "+nombre);
-        gateNumber.setFont(new Font("Arial", 15));
+        gateNumber.setFont(new Font("Simular",15));
+        gateNumber.setTextFill(Color.web("#ffde00", 0.8));
         gateNumber.setOnMouseClicked(createUserGate);
         vbox.getChildren().add(gateNumber);
+        //scrollpane.getChildrenUnmodifiable().add(gateNumber);
         savedGatesNum++;
         
 
@@ -330,6 +336,7 @@ public class UserInterfaceController implements Initializable {
                         entrada.setImage(imagen);
                     }
                     entrada.change();
+                    circuit.updateGates();
                 }
             }
             
@@ -436,14 +443,17 @@ public class UserInterfaceController implements Initializable {
             
             Group g = new Group();
             
-            USERGATE usrgate = new USERGATE(circuit.agregarCircuito(savedGate.circuito));
+            //USERGATE usrgate = new USERGATE(circuit.agregarCircuito(savedGate.circuito));
+            USERGATE usrgate = new USERGATE(savedGate.circuito);
+                        
+
             Image imagen=new Image("Proyecto1/img/new.png");
             savedGate.circuito.printList();
             System.out.println(" ");
             usrgate.circuito.printList();
             
-            int inputs= usrgate.inputs.getSize();
-            int outputs = usrgate.outputs.getSize();
+            int inputs= usrgate.getInputs().getSize();
+            int outputs = usrgate.getOutputs().getSize();
 
             usrgate.label.setText(savedGate.label.getText());
             usrgate.label.setLayoutY(100);
@@ -456,7 +466,7 @@ public class UserInterfaceController implements Initializable {
 
             int y = 0;
             for (int i=0; i< inputs;i++){
-                Label label = new Label(Integer.toString((int)usrgate.inputs.searchByIndex(i)));
+                Label label = new Label(Integer.toString((int)usrgate.getInputs().searchByIndex(i)));
                 label.setLayoutY(y);
                 label.setOnMouseClicked(userLabelEvents);
                 g.getChildren().add(label);
@@ -464,7 +474,7 @@ public class UserInterfaceController implements Initializable {
             }
             y=0;
             for (int i=0; i< outputs;i++){
-                Label label = new Label(Integer.toString((int)usrgate.outputs.searchByIndex(i)));
+                Label label = new Label(Integer.toString((int)usrgate.getOutputs().searchByIndex(i)));
                 label.setLayoutY(y);
                 label.setLayoutX(80);
                 label.setOnMouseClicked(userLabelEvents);

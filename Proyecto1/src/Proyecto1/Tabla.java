@@ -6,7 +6,6 @@
 package Proyecto1;
 
 import java.util.Iterator;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -100,7 +98,15 @@ public class Tabla{
         }
        
     }
-    
+    public void setRows(){
+       int entradas= (int) Math.pow(2,circuit.contarEntradas());
+       while (entradas != 0){
+           
+           table.getItems().addAll(getInputs());
+           entradas--;
+           rows++;
+       }
+   }
     
     public ObservableList<Integer> getInputs(){
         int entradas= circuit.contarEntradas();
@@ -136,15 +142,7 @@ public class Tabla{
     
     }
     
-   public void setRows(){
-       int entradas= (int) Math.pow(2,circuit.contarEntradas());
-       while (entradas != 0){
-           
-           table.getItems().addAll(getInputs());
-           entradas--;
-           rows++;
-       }
-   }
+   
     
     
     

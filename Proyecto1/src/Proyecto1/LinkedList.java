@@ -75,24 +75,7 @@ public class LinkedList{
 
         }
     }
-    /**
-     * Función que busca un objeto en la lista y retorna la cantidad de veces que se encontró dicho parámetro
-     * @param x 
-     * @return La cantidad de veces que encontró a x en la lista
-     */
-    public int searchAmount(boolean x){ 
-        int amount=0;
-        Node current = head;
-        
-        while (current != null){ 
-            Compuerta actual =(Compuerta)current.getData();
-            if (actual.valor == x) 
-                amount++; 
-                 
-            current = current.getNext(); 
-        } 
-        return amount;     
-    }
+    
     
     
     /**
@@ -110,24 +93,7 @@ public class LinkedList{
         }
         return temp.getData();
     } 
-    /**
-     * Función que busca un nodo en una lista de instancias de Compuerta según su atributo de ID
-     * @param id
-     * @return La información del nodo que tiene esa ID o null si la ID no existe
-     */
-    public Object searchByID(int id){
-        Node current=head;
-        while(current!=null){
-            Compuerta actual= (Compuerta)current.getData();
-            if(actual.id==id){
-                return current.getData();
-            }
-            else{
-                current=current.getNext();
-            }
-        }
-        return null;
-    }
+    
     /**
      * Método específico para las compuertas que busca el índice en que se encuentra la compuerta según su id
      * @param id de la compuerta
@@ -194,6 +160,7 @@ public class LinkedList{
      */
     public void clearList(){
         this.head = null;
+        this.size = 0;
         
     }
     /**

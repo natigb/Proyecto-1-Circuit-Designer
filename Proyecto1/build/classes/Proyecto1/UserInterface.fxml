@@ -79,7 +79,7 @@
                                     <Image url="@img/xor.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="70.0" fitWidth="80.0" layoutX="11.0" layoutY="460.0" onDragDetected="#crearXNOR" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="70.0" fitWidth="80.0" layoutX="11.0" layoutY="460.0" onDragDetected="#crearNOT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@img/not.png" />
                                  </image>
@@ -90,7 +90,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <Pane fx:id="pane" prefHeight="649.0" prefWidth="1231.0" />
+            <Pane fx:id="pane" onMouseDragReleased="#crearNOT" prefHeight="649.0" prefWidth="1231.0" />
          </children>
       </HBox>
   </children>

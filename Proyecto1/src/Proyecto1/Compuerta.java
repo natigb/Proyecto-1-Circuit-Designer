@@ -48,8 +48,25 @@ public class Compuerta extends ImageView{
     public boolean isValor() {
         return valor;
     }
-    
-}
+    /**
+     * Función que busca un objeto en la lista y retorna la cantidad de veces que se encontró dicho parámetro
+     * @param x 
+     * @return La cantidad de veces que encontró a x en la lista
+     */
+    public int searchAmount(boolean x){ 
+          int amount=0;
+          Node current = InputGates.getHead();
+
+          while (current != null){ 
+              Compuerta actual =(Compuerta)current.getData();
+              if (actual.valor == x) 
+                  amount++; 
+
+              current = current.getNext(); 
+          } 
+          return amount;     
+      }  
+  }
  
 class AND extends Compuerta{
     /**
@@ -57,7 +74,7 @@ class AND extends Compuerta{
      */
     @Override
     public void operacion(){
-        this.valor = !(InputGates.searchAmount(false)!=0);
+        this.valor = !(searchAmount(false)!=0);
     }
 }
 
@@ -67,7 +84,7 @@ class NAND extends Compuerta{
      */
     @Override
     public void operacion(){
-        this.valor = (InputGates.searchAmount(false)!=0);
+        this.valor = (searchAmount(false)!=0);
     }
 }
 
@@ -77,7 +94,7 @@ class OR extends Compuerta{
      */
     @Override
     public void operacion(){
-        this.valor = (InputGates.searchAmount(true)!=0);
+        this.valor = (searchAmount(true)!=0);
     }
 }
 class NOR extends Compuerta{
@@ -86,28 +103,31 @@ class NOR extends Compuerta{
      */
     @Override
     public void operacion(){
-        this.valor = !(InputGates.searchAmount(true)!=0);
+        this.valor = !(searchAmount(true)!=0);
     } 
 }
 class NOT extends Compuerta{
     
     @Override
     public void operacion(){
-        this.valor= !(InputGates.searchAmount(true)!=0); 
+        AND and = new AND();
+        InputGates.insertFirst(and);
+        Compuerta compuerta= (Compuerta)InputGates.getHead().getData();
+        this.valor= !(compuerta.valor); 
     }
 }
 
 class XOR extends Compuerta{
     @Override
     public void operacion(){
-        this.valor= (InputGates.searchAmount(true)%2!=0);
+        this.valor= (searchAmount(true)%2!=0);
     }
 }
 
 class XNOR extends Compuerta{
     @Override
     public void operacion(){
-        this.valor= !(InputGates.searchAmount(true)%2!=0);
+        this.valor= !(searchAmount(true)%2!=0);
     }
 }
     
@@ -187,6 +207,7 @@ class USERGATE extends Compuerta{
     }
 
     public LinkedList getInputs() {
+        this.inputs = inputIDs();
         return inputs;
     }
 
@@ -195,6 +216,7 @@ class USERGATE extends Compuerta{
     }
 
     public LinkedList getOutputs() {
+        this.outputs = outputIDs();
         return outputs;
     }
 

@@ -77,8 +77,8 @@ public class Circuito {
            // System.out.println("Solo pueden ser inputs");
         //}
        // else{
-            Compuerta salida= (Compuerta)circuito.searchByID(idOut);
-            Compuerta entrada= (Compuerta)circuito.searchByID(idIn);
+            Compuerta salida= (Compuerta)searchByID(idOut);
+            Compuerta entrada= (Compuerta)searchByID(idIn);
             entrada.InputGates.insertFirst(salida);
             salida.OutputGates.insertFirst(entrada);
             updateGates();   
@@ -92,8 +92,8 @@ public class Circuito {
      * @param idIn 
      */
     public void desconectarCompuerta(int idOut, int idIn){
-        Compuerta compuertaA = (Compuerta)circuito.searchByID(idOut);
-        Compuerta compuertaB = (Compuerta)circuito.searchByID(idIn);
+        Compuerta compuertaA = (Compuerta)searchByID(idOut);
+        Compuerta compuertaB = (Compuerta)searchByID(idIn);
         compuertaA.OutputGates.deleteByIndex(compuertaA.OutputGates.getIndexbyID(idIn));
         compuertaB.InputGates.deleteByIndex(compuertaB.InputGates.getIndexbyID(idOut));
         System.out.println("Se ha desconectado la compuerta "+idOut+"de la "+idIn);
@@ -110,7 +110,7 @@ public class Circuito {
         while (current != null){
             Compuerta actual = (Compuerta)current.getData();
             if (actual.getID()>=0){
-                if (actual.InputGates.getSize()<2){
+                if (actual.InputGates.getSize()<2 && actual.getClass()!=(new NOT().getClass())){
                     JOptionPane.showMessageDialog(null,"Rellene todos los valores de entrada en la compuerta "+actual.id);
                     System.out.println("Rellene todos los valores de entrada en la compuerta "+actual.id);
                 }
@@ -135,7 +135,7 @@ public class Circuito {
      * @param id de la compuerta
      */
     public void delete(int id){
-        Compuerta compuerta = (Compuerta)circuito.searchByID(id);
+        Compuerta compuerta = (Compuerta)searchByID(id);
         Node currenti=compuerta.OutputGates.getHead();
         while (currenti!= null){
             Compuerta actual = (Compuerta)currenti.getData();
@@ -205,12 +205,30 @@ public class Circuito {
             current = current.getNext();
         }
     }
-   
+   /**
+     * Función que busca un nodo en una lista de instancias de Compuerta según su atributo de ID
+     * @param id
+     * @return La información del nodo que tiene esa ID o null si la ID no existe
+     */
+    public Object searchByID(int id){
+        Node current= circuito.getHead();
+        while(current!=null){
+            Compuerta actual= (Compuerta)current.getData();
+            if(actual.id==id){
+                return current.getData();
+            }
+            else{
+                current=current.getNext();
+            }
+        }
+        return null;
+    }
+    
    public void changeInputs(LinkedList newInputs){
        int i = 0;
        LinkedList inIDs = getInputIDs(); 
        while (i<newInputs.getSize()){
-           Entrada entrada = (Entrada)circuito.searchByID((int)inIDs.searchByIndex(i));
+           Entrada entrada = (Entrada)searchByID((int)inIDs.searchByIndex(i));
            Boolean valor = (Boolean)newInputs.searchByIndex(i);
            if (valor){
                entrada.setToTrue();
