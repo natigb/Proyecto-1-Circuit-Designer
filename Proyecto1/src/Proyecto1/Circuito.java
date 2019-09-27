@@ -1,17 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Instituto Tecnológico de Costa Rica
+ * Estudiante: Natalia González
  */
 package Proyecto1;
 
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase Circuito se encarga de guardar, conectar, eliminar y ejecutar circuitos de compuertas lógicas
  * @author Natalia Gonzalez
  */
 public class Circuito {
+   
     LinkedList circuito;
     LinkedList inputIds;
     LinkedList outputs;
@@ -52,6 +52,11 @@ public class Circuito {
         numIn--;
 
     }
+    /**
+     * Función que recibe una lista de compuertas y las agrega al circuito
+     * @param list
+     * @return 
+     */
     public LinkedList agregarCircuito (LinkedList list){
         Node current = list.getHead();
         while (current!=null){
@@ -73,10 +78,7 @@ public class Circuito {
      * @param idIn 
      */
     public void conectarCompuerta(int idOut, int idIn){
-        //if (idIn==-1 || idIn==-2){
-           // System.out.println("Solo pueden ser inputs");
-        //}
-       // else{
+        
             Compuerta salida= (Compuerta)searchByID(idOut);
             Compuerta entrada= (Compuerta)searchByID(idIn);
             entrada.InputGates.insertFirst(salida);
@@ -223,7 +225,10 @@ public class Circuito {
         }
         return null;
     }
-    
+   /**
+    * Método que recibe una lista enlazada con las entradas nuevas que se le quiere asignar al circuito.
+    * @param newInputs 
+    */
    public void changeInputs(LinkedList newInputs){
        int i = 0;
        LinkedList inIDs = getInputIDs(); 
@@ -240,8 +245,8 @@ public class Circuito {
                    
        }
        
-      
    }
+   
    public LinkedList getInputIDs(){
        contarEntradas();
        return inputIds;

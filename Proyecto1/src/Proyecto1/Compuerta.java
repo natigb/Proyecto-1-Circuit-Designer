@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Instituto Tecnológico de Costa Rica
+ * Estudiante: Natalia González
  */
 package Proyecto1;
 
@@ -12,8 +11,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 /**
- *
- * @author Nati Gonzalez
+ * Clase Padre compuerta que de ella se derivan las clases de las que se van a crear los objetos que van a objetos 
+ * @author Natalia Gonzalez
  */
 public class Compuerta extends ImageView{
     int id;
@@ -107,7 +106,9 @@ class NOR extends Compuerta{
     } 
 }
 class NOT extends Compuerta{
-    
+    /**
+     * Operaciín ce una not, si hay un true devuelve false y si hay un false devuelve true
+     */
     @Override
     public void operacion(){
         AND and = new AND();
@@ -118,6 +119,9 @@ class NOT extends Compuerta{
 }
 
 class XOR extends Compuerta{
+    /**
+     * Operación ce una xor, si hay una cantidad impares de true devuelve true
+     */
     @Override
     public void operacion(){
         this.valor= (searchAmount(true)%2!=0);
@@ -125,6 +129,9 @@ class XOR extends Compuerta{
 }
 
 class XNOR extends Compuerta{
+    /**
+     * Operación ce una xnor, si hay una cantidad impares de true devuelve false
+     */
     @Override
     public void operacion(){
         this.valor= !(searchAmount(true)%2!=0);
@@ -136,7 +143,9 @@ class Entrada extends Compuerta{
     public Entrada() {
         this.valor=true;
     }
-    
+    /**
+     * Si tiene algo en la entrada entonces devuelve el valor que tiene en la primera posición
+     */
     @Override
     public void operacion(){
         if (this.InputGates.getSize()!=0){
@@ -144,6 +153,9 @@ class Entrada extends Compuerta{
            this.valor= c.valor;
         }
     }
+    /**
+     * Si el valor de entrada es false lo cambia a true y viceversa
+     */
     public void change(){
         if (valor){
             this.valor=false;
@@ -153,9 +165,15 @@ class Entrada extends Compuerta{
         }
         System.out.println("Cambio");
         }
+    /**
+     * Establece el valor a true
+     */
     public void setToTrue(){
         this.valor = true;
     }
+    /**
+     * Establece el valor a false
+     */
     public void setToFalse(){
         this.valor = false;
     }   

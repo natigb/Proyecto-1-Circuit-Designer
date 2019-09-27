@@ -32,7 +32,6 @@ import javax.swing.JOptionPane;
  * @author Nati Gonzalez
  */
 public class UserInterfaceController implements Initializable {
-    
     private Circuito circuit = new Circuito();
     private LinkedList savedGates= new LinkedList();
     private int savedGatesNum = 0;
