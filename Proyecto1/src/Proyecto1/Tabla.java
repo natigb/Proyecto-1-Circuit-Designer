@@ -25,18 +25,20 @@ import javafx.stage.Stage;
  */
 public class Tabla{
     int rows;
-    int columna =0;
+    int columna;
     Circuito circuit;
     private final TableView<ObservableList<Integer>> table;
     
     public Tabla(Circuito circuit) {
         this.rows = 0;
+        this.columna = 0;
         this.circuit= circuit;
         this.table=new TableView();
     }
     
     public void crearTabla(){
         Scene scene = new Scene(new Group());
+
         Stage stage = new Stage();
         stage.setTitle("Truth Table");
         stage.setWidth(600);
@@ -62,7 +64,7 @@ public class Tabla{
         stage.show();
     }
     
-    public void setColumns(){
+    private void setColumns(){
         int counter = circuit.contarEntradas()+circuit.contarSalidas();
         int counterIn = circuit.contarEntradas();
 
@@ -98,17 +100,17 @@ public class Tabla{
         }
        
     }
-    public void setRows(){
+    private void setRows(){
        int entradas= (int) Math.pow(2,circuit.contarEntradas());
        while (entradas != 0){
            
-           table.getItems().addAll(getInputs());
+           table.getItems().addAll(getInfo());
            entradas--;
            rows++;
        }
    }
     
-    public ObservableList<Integer> getInputs(){
+    private ObservableList<Integer> getInfo(){
         int entradas= circuit.contarEntradas();
         LinkedList ins = new LinkedList();
         ObservableList<Integer> inputs = FXCollections.observableArrayList();

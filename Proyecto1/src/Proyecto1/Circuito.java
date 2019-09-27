@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class Circuito {
     LinkedList circuito;
-    LinkedList inputs;
+    LinkedList inputIds;
     LinkedList outputs;
     LinkedList outputIds;
     int numId;
@@ -25,7 +25,7 @@ public class Circuito {
         circuito = new LinkedList();
         
         outputs = new LinkedList();
-        inputs = new LinkedList();
+        inputIds = new LinkedList();
         outputIds = new LinkedList();
     }
     
@@ -160,13 +160,13 @@ public class Circuito {
     */
    public int contarEntradas(){
        int counter= 0;
-       inputs.clearList();
+       inputIds.clearList();
        Node current = circuito.getHead();
        while (current != null){
            Compuerta temporal = (Compuerta)current.getData();
            if (temporal.id < 0 && temporal.InputGates.getSize()==0){
                counter++;
-               inputs.insertFirst(temporal.id);
+               inputIds.insertFirst(temporal.id);
            }
            current = current.getNext();
        }
@@ -244,7 +244,7 @@ public class Circuito {
    }
    public LinkedList getInputIDs(){
        contarEntradas();
-       return inputs;
+       return inputIds;
    }
    public LinkedList getOutputIDs(){
        contarSalidas();

@@ -77,9 +77,7 @@ public class UserInterfaceController implements Initializable {
        
        circuit.circuito.printList();
        circuit.simularCircuito();
-       circuit.outputs.printList();
-       circuit.inputs.printList();
-       
+      
    }
    @FXML
    public void resetPane(){
@@ -152,7 +150,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/and.png");
        AND and =new AND();
        circuit.nuevaCompuerta(and);
-       and.label.setText("AND"+Integer.toString(and.getID()));
+       and.label.setText("AND"+Integer.toString(and.getID())+" o<"+Integer.toString(and.getID())+">");
        and.label.setLayoutY(80);
        and.setImage(imagen);
        and.setOnMouseClicked(eraseGate);
@@ -172,7 +170,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/nand.png");
        NAND nand =new NAND();
        circuit.nuevaCompuerta(nand);
-       nand.label.setText("NAND"+Integer.toString(nand.getID()));
+       nand.label.setText("NAND"+Integer.toString(nand.getID())+" o<"+Integer.toString(nand.getID())+">");
        nand.label.setLayoutY(80);
        nand.setImage(imagen);
        nand.setOnMouseClicked(eraseGate);
@@ -191,7 +189,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/or.png");
        OR or =new OR();
        circuit.nuevaCompuerta(or);
-       or.label.setText("OR"+Integer.toString(or.getID()));
+       or.label.setText("OR"+Integer.toString(or.getID())+" o<"+Integer.toString(or.getID())+">");
        or.label.setLayoutY(80);
        or.setImage(imagen);
        or.setOnMouseClicked(eraseGate);
@@ -209,7 +207,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/nor.png");
        NOR nor =new NOR();
        circuit.nuevaCompuerta(nor);
-       nor.label.setText("NOR"+Integer.toString(nor.getID()));
+       nor.label.setText("NOR"+Integer.toString(nor.getID())+" o<"+Integer.toString(nor.getID())+">");
        nor.label.setLayoutY(80);
        nor.setImage(imagen);
        nor.setOnMouseClicked(eraseGate);
@@ -228,7 +226,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/xor.png");
        XOR xor =new XOR();
        circuit.nuevaCompuerta(xor);
-       xor.label.setText("XOR"+Integer.toString(xor.getID()));
+       xor.label.setText("XOR"+Integer.toString(xor.getID())+" o<"+Integer.toString(xor.getID())+">");
        xor.label.setLayoutY(80);
        xor.setImage(imagen);
        xor.setOnMouseClicked(eraseGate);
@@ -247,7 +245,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/xnor.png");
        XNOR xnor =new XNOR();
        circuit.nuevaCompuerta(xnor);
-       xnor.label.setText("XNOR"+Integer.toString(xnor.getID()));
+       xnor.label.setText("XNOR"+Integer.toString(xnor.getID())+" o<"+Integer.toString(xnor.getID())+">");
        xnor.label.setLayoutY(80);
        xnor.setImage(imagen);
        xnor.setOnMouseClicked(eraseGate);
@@ -266,7 +264,7 @@ public class UserInterfaceController implements Initializable {
        Image imagen=new Image("Proyecto1/img/not.png");
        NOT not =new NOT();
        circuit.nuevaCompuerta(not);
-       not.label.setText("NOT"+Integer.toString(not.getID()));
+       not.label.setText("NOT"+Integer.toString(not.getID())+" o<"+Integer.toString(not.getID())+">");
        not.label.setLayoutY(80);
        not.setImage(imagen);
        not.setOnMouseClicked(eraseGate);
@@ -384,7 +382,11 @@ public class UserInterfaceController implements Initializable {
         public void handle(MouseEvent t) {
             if(t.isAltDown()){
                 Label label=(Label)t.getSource();
+                try{
                 circuit.desconectarCompuerta(Integer.valueOf(label.getText().split("/")[0]),Integer.valueOf(label.getText().split("/")[1]));
+                }catch (Exception e){
+                    
+                }
                 label.setText(null);
             }
         }
