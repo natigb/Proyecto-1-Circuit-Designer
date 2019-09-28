@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Proyecto1;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,17 +17,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 
 /**
  * FXML Controller class
- *
+ * Clase que se encarga de controlar todos los procesos relacionados con la interfaz gráfica de usuario
  * @author Nati Gonzalez
  */
 public class UserInterfaceController implements Initializable {
     private Circuito circuit = new Circuito();
+    private LinkedList encapsular = new LinkedList();
     private LinkedList savedGates= new LinkedList();
     private int savedGatesNum = 0;
     private int entrada;
@@ -70,7 +65,9 @@ public class UserInterfaceController implements Initializable {
         anchorpane.getStyleClass().add("anchorpane");
         scrollpane.getStyleClass().addAll("scroll-pane","scroll-bar");
     }
-   
+   /**
+    * MMétodo asociado a un botón que simula el circuito diseñado
+    */
    @FXML
    public void simularCircuito(){
        
@@ -78,16 +75,24 @@ public class UserInterfaceController implements Initializable {
        circuit.simularCircuito();
       
    }
+   
+   /**
+    * Método asociado a un botón para eliminar todos los elementos del panel donde están las compuertas
+    */
    @FXML
    public void resetPane(){
        pane.getChildren().clear();
    }
+   
+   /**
+    * Método asociado a un botón que encapsula el circuito y lo pone en la paleta de circuitos
+    */
    @FXML
    public void guardarCircuito(){
         resetPane();
         
         Image imagen=new Image("Proyecto1/img/new.png");
-        USERGATE usrgate =new USERGATE(circuit.circuito);
+        USERGATE usrgate =new USERGATE(encapsular);
         int inputs= usrgate.inputs.getSize();
         int outputs = usrgate.outputs.getSize();
         String nombre = JOptionPane.showInputDialog("Nombre del circuito");
@@ -123,18 +128,21 @@ public class UserInterfaceController implements Initializable {
             g.getChildren().add(label);
             y+=10;
         }
-        pane.getChildren().addAll(g);  
-        
+        encapsular.clearList();
         Label gateNumber = new Label (savedGatesNum+": "+nombre);
         gateNumber.setFont(new Font("Simular",15));
         gateNumber.setTextFill(Color.web("#ffde00", 0.8));
         gateNumber.setOnMouseClicked(createUserGate);
         vbox.getChildren().add(gateNumber);
-        //scrollpane.getChildrenUnmodifiable().add(gateNumber);
+        
         savedGatesNum++;
         
 
    }
+   
+   /**
+    * Método asociado a un botón que se encarga de llamar a la clase que crea la tabla de verdad del circuito.
+    */
    @FXML
    public void tabla(){
       Tabla tabla = new Tabla(circuit);
@@ -144,11 +152,16 @@ public class UserInterfaceController implements Initializable {
         
    }
    
+   /**
+    * Función asociada a la imagen de una AND en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearAND(){
        Image imagen=new Image("Proyecto1/img/and.png");
        AND and =new AND();
        circuit.nuevaCompuerta(and);
+       encapsular.insertFirst(and);
        and.label.setText("AND"+Integer.toString(and.getID())+" o<"+Integer.toString(and.getID())+">");
        and.label.setLayoutY(80);
        and.setImage(imagen);
@@ -163,12 +176,17 @@ public class UserInterfaceController implements Initializable {
        
        
    }
-   
+   /**
+    * Función asociada a la imagen de una NAND en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearNAND(){
        Image imagen=new Image("Proyecto1/img/nand.png");
        NAND nand =new NAND();
        circuit.nuevaCompuerta(nand);
+       encapsular.insertFirst(nand);
+
        nand.label.setText("NAND"+Integer.toString(nand.getID())+" o<"+Integer.toString(nand.getID())+">");
        nand.label.setLayoutY(80);
        nand.setImage(imagen);
@@ -182,12 +200,16 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(g);
        
    }
-   
+   /**
+    * Función asociada a la imagen de una OR en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearOR(){
        Image imagen=new Image("Proyecto1/img/or.png");
        OR or =new OR();
        circuit.nuevaCompuerta(or);
+       encapsular.insertFirst(or);
        or.label.setText("OR"+Integer.toString(or.getID())+" o<"+Integer.toString(or.getID())+">");
        or.label.setLayoutY(80);
        or.setImage(imagen);
@@ -201,11 +223,16 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(g);
        
    }
+   /**
+    * Función asociada a la imagen de una NOR en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearNOR(){
        Image imagen=new Image("Proyecto1/img/nor.png");
        NOR nor =new NOR();
        circuit.nuevaCompuerta(nor);
+       encapsular.insertFirst(nor);
        nor.label.setText("NOR"+Integer.toString(nor.getID())+" o<"+Integer.toString(nor.getID())+">");
        nor.label.setLayoutY(80);
        nor.setImage(imagen);
@@ -219,12 +246,16 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(g);
        
    }
-   
+   /**
+    * Función asociada a la imagen de una XOR en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearXOR(){
        Image imagen=new Image("Proyecto1/img/xor.png");
        XOR xor =new XOR();
        circuit.nuevaCompuerta(xor);
+       encapsular.insertFirst(xor);
        xor.label.setText("XOR"+Integer.toString(xor.getID())+" o<"+Integer.toString(xor.getID())+">");
        xor.label.setLayoutY(80);
        xor.setImage(imagen);
@@ -238,12 +269,16 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(g);
        
    }
-   
+   /**
+    * Función asociada a la imagen de una XNOR en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearXNOR(){
        Image imagen=new Image("Proyecto1/img/xnor.png");
        XNOR xnor =new XNOR();
        circuit.nuevaCompuerta(xnor);
+       encapsular.insertFirst(xnor);
        xnor.label.setText("XNOR"+Integer.toString(xnor.getID())+" o<"+Integer.toString(xnor.getID())+">");
        xnor.label.setLayoutY(80);
        xnor.setImage(imagen);
@@ -257,12 +292,16 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(g);
        
    }
-   
+   /**
+    * Función asociada a la imagen de una NOT en la paleta de compuertas que crea la compuerta y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML 
    public void crearNOT(){
        Image imagen=new Image("Proyecto1/img/not.png");
        NOT not =new NOT();
        circuit.nuevaCompuerta(not);
+       encapsular.insertFirst(not);
        not.label.setText("NOT"+Integer.toString(not.getID())+" o<"+Integer.toString(not.getID())+">");
        not.label.setLayoutY(80);
        not.setImage(imagen);
@@ -277,13 +316,17 @@ public class UserInterfaceController implements Initializable {
        
    }
    
-   
+   /**
+    * Función asociada a un botón del menú de una entrada en la paleta de compuertas que crea la entrada y la agrega al circuito
+    * con todos los eventos asociados respectivos
+    */
    @FXML
    public void addEntrada(){
        Image imagen=new Image("Proyecto1/img/true.png");
        Entrada input=new Entrada();
        input.setImage(imagen);
        circuit.agregarEntrada(input);
+       encapsular.insertFirst(input);
        input.label.setText("i<"+Integer.toString(input.getID())+">");
        input.label.setLayoutY(45);
        input.label.setLayoutX(8);
@@ -297,7 +340,11 @@ public class UserInterfaceController implements Initializable {
        pane.getChildren().addAll(g);
    
    }
-   
+   /**
+    * Evento asociado a todas las compuertas creadas que se encarga de eliminiar una compuerta con Alt+click, La asigna
+    * como salida a conectar con Ctrl+click y a entrada a conectar creando la línea con Shift+Click si es una compuerta normal
+    * pero si es una entrada lo que hace es cambiar su valor de 1 o 0
+    */
    EventHandler<MouseEvent> eraseGate= new EventHandler<MouseEvent>(){
 
         @Override
@@ -340,6 +387,9 @@ public class UserInterfaceController implements Initializable {
         }
     };
    
+   /**
+    * Evento para el drag and drop qe captura las coordenadas de la compuerta para después moverla
+    */
    EventHandler<MouseEvent> pressGate= new EventHandler<MouseEvent>(){
 
         @Override
@@ -351,6 +401,11 @@ public class UserInterfaceController implements Initializable {
            
         }
     };
+   
+   /**
+    * Evento para el drag and drop que toma las coordenadas de la compuerta y dependiendo de la posición del mouse
+    * la arrastra
+    */
    EventHandler<MouseEvent> dragGate= new EventHandler<MouseEvent>(){
 
         @Override
@@ -365,6 +420,9 @@ public class UserInterfaceController implements Initializable {
         }
    
    };
+   /**
+    * Evento para eliminar la línea que representa las conexiones entre las compuertas
+    */
    EventHandler<MouseEvent> eraseLine= new EventHandler<MouseEvent>(){
 
         @Override
@@ -375,6 +433,10 @@ public class UserInterfaceController implements Initializable {
             }
         }
    };
+   /**
+    * Evento que elimina las etiquetas que se cren al conectar 2 compuertas entre ellas que es equivalernte
+    * también a desconectar las compuertas
+    */
    EventHandler<MouseEvent> eraseLabel= new EventHandler<MouseEvent>(){
 
         @Override
@@ -390,6 +452,10 @@ public class UserInterfaceController implements Initializable {
             }
         }
    };
+   
+   /**
+    * Evento para eliminar una compuerta de usuario de la interfaz
+    */
    EventHandler<MouseEvent> userGateEvents= new EventHandler<MouseEvent>(){
 
         @Override
@@ -406,12 +472,14 @@ public class UserInterfaceController implements Initializable {
                
                 pane.getChildren().remove(g);
                 
-                
-                
             }
            
         }
     };
+   
+   /**
+    * Evento que asocia las etiqutas de la compuerta para poder realizar conexiones con otras compuertas
+    */
    EventHandler<MouseEvent> userLabelEvents= new EventHandler<MouseEvent>(){
         @Override
         public void handle(MouseEvent t){
@@ -434,6 +502,9 @@ public class UserInterfaceController implements Initializable {
         } 
    };
    
+   /**
+    * Función que crea la compuerta de usuario a partir del label que se creó en la paleta de compuertas
+    */
    EventHandler<MouseEvent> createUserGate= new EventHandler<MouseEvent>(){
         @Override
         public void handle(MouseEvent t){
@@ -442,51 +513,17 @@ public class UserInterfaceController implements Initializable {
             Group savedGroup = (Group)savedGates.searchByIndex(groupIndex);
             USERGATE savedGate=(USERGATE)savedGroup.getChildren().get(0);
             
-            Group g = new Group();
+            circuit.agregarCircuito(savedGate.circuito);
             
-            //USERGATE usrgate = new USERGATE(circuit.agregarCircuito(savedGate.circuito));
-            USERGATE usrgate = new USERGATE(savedGate.circuito);
-                        
-
-            Image imagen=new Image("Proyecto1/img/new.png");
-            savedGate.circuito.printList();
-            System.out.println(" ");
-            usrgate.circuito.printList();
-            
-            int inputs= usrgate.getInputs().getSize();
-            int outputs = usrgate.getOutputs().getSize();
-
-            usrgate.label.setText(savedGate.label.getText());
-            usrgate.label.setLayoutY(100);
-            usrgate.setImage(imagen);
-
-            g.setOnMousePressed(pressGate);
-            g.setOnMouseDragged(dragGate);
-            g.setOnMouseClicked(userGateEvents);
-            g.getChildren().addAll(usrgate,usrgate.label);
-
-            int y = 0;
-            for (int i=0; i< inputs;i++){
-                Label label = new Label(Integer.toString((int)usrgate.getInputs().searchByIndex(i)));
-                label.setLayoutY(y);
-                label.setOnMouseClicked(userLabelEvents);
-                g.getChildren().add(label);
-                y+=10;
-            }
-            y=0;
-            for (int i=0; i< outputs;i++){
-                Label label = new Label(Integer.toString((int)usrgate.getOutputs().searchByIndex(i)));
-                label.setLayoutY(y);
-                label.setLayoutX(80);
-                label.setOnMouseClicked(userLabelEvents);
-                g.getChildren().add(label);
-                y+=10;
-            }
-            pane.getChildren().addAll(g);  
-           
+            pane.getChildren().addAll(savedGroup);  
+            vbox.getChildren().removeAll(l);
             
         } 
    };
+   
+   /**
+    * Método para crear la línea que representan las conexiones de las compuertas
+    */
    public void crearLinea(){
         Line line=new Line();
         line.setStartX(startX); 
@@ -510,6 +547,10 @@ public class UserInterfaceController implements Initializable {
         }
    }
    
+   /**
+    * Método para asignar un color aleatorio a la linea
+    * @return Un color aleatorio
+    */
    public Color colorLine(){
        int r = (int) (Math.random() * 255);
        int g = (int) (Math.random() * 255);

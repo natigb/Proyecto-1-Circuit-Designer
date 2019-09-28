@@ -61,12 +61,7 @@ public class Circuito {
         Node current = list.getHead();
         while (current!=null){
             Compuerta compuerta = (Compuerta)current.getData();
-            if (compuerta.id<0){
-                agregarEntrada(compuerta);
-            }
-            else{
-                nuevaCompuerta(compuerta);
-            }
+            circuito.insertFirst(compuerta);
             current = current.getNext();
         }
         return list;
@@ -86,7 +81,6 @@ public class Circuito {
             updateGates();   
             System.out.println("Compuerta "+idOut+" conectada con "+idIn);
     
-        //}
     }
     /**
      * Desconecta dos compuertas 

@@ -1,17 +1,14 @@
-/*
- * Instituto Tecnológico de Costa Rica
- * Estudiante: Natalia González
- */
+
 package Proyecto1;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
 /**
- * Clase Padre compuerta que de ella se derivan las clases de las que se van a crear los objetos que van a objetos 
+ * Clase Padre compuerta que de ella se derivan las clases de las que se van a crear los objetos que van a formar
+ * parte del circuito
  * @author Natalia Gonzalez
  */
 public class Compuerta extends ImageView{
@@ -166,13 +163,13 @@ class Entrada extends Compuerta{
         System.out.println("Cambio");
         }
     /**
-     * Establece el valor a true
+     * Establece el valor de la compuerta a true
      */
     public void setToTrue(){
         this.valor = true;
     }
     /**
-     * Establece el valor a false
+     * Establece el valor de la compuerta a false
      */
     public void setToFalse(){
         this.valor = false;
@@ -191,6 +188,10 @@ class USERGATE extends Compuerta{
 
     }
     
+    /**
+     * Función que mete en una lista todos los IDs de los inputs de las compuertas
+     * @return Lista enlazada con los Ids de las compuertas de entrada
+     */
     public LinkedList inputIDs(){
         LinkedList inputIds= new LinkedList();
         Node current = circuito.getHead();
@@ -203,7 +204,10 @@ class USERGATE extends Compuerta{
         }
         return inputIds;
     }
-    
+    /**
+     * Función que mete en una lista todos los IDs de los outputs de las compuertas
+     * @return Lista enlazada con los Ids de las compuertas de salida
+     */
     public LinkedList outputIDs(){
         LinkedList outputIds= new LinkedList();
         Node current = circuito.getHead();

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Proyecto1;
 
 import java.util.Iterator;
@@ -20,8 +16,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- *
- * @author Nati Gonzalez
+ * Clase encargada de realizar todas las operaciones relacionadas con la creación de la tabla de la verdad del circuito
+ * @author Natalia Gonzalez
  */
 public class Tabla{
     int rows;
@@ -36,6 +32,10 @@ public class Tabla{
         this.table=new TableView();
     }
     
+    /**
+     * Crea la ventana y la escena donde va a estar la tabla y manda a llamar a 
+     * otros métodos que crean las filas y las columnas de dicha tabla
+     */
     public void crearTabla(){
         Scene scene = new Scene(new Group());
 
@@ -64,6 +64,11 @@ public class Tabla{
         stage.show();
     }
     
+    /**
+     * Cuenta la cantidad de entradas y salidas que tiene el circuito para crear una equivalente de las columnas,
+     * también toma el nombre de las entradas y salidas y se lo coloca a cada columna y también tiene una función que 
+     * al crear las columnas le dice que datos de la lista observable tomar.
+     */
     private void setColumns(){
         int counter = circuit.contarEntradas()+circuit.contarSalidas();
         int counterIn = circuit.contarEntradas();
@@ -100,6 +105,11 @@ public class Tabla{
         }
        
     }
+    
+    /**
+     * Crea las filas de la tabla, cuenta la cantidad de entradas n que hay y crea 2^n filas con todas las combinaciones 
+     * de 1s y 0s que pueden tener. Para rellenar cada fila llama a la función getInfo()
+     */
     private void setRows(){
        int entradas= (int) Math.pow(2,circuit.contarEntradas());
        while (entradas != 0){
@@ -109,7 +119,13 @@ public class Tabla{
            rows++;
        }
    }
-    
+    /**
+     * Método que crea cada fila de la lista. Toma la variable rows que es un contador de la fila en la que se encuentra
+     * la convierte a binario y dependiendo de las entradas agrega los 0s a la izquierda que necesita para completar la fila 
+     * y la agrega a la lista observable, luego toma este valor de entrada, se lo manda al circuito y toma los outputs generados
+     * y lo agrega a la lista
+     * @return La lista completa con outputs e inputs en orden
+     */
     private ObservableList<Integer> getInfo(){
         int entradas= circuit.contarEntradas();
         LinkedList ins = new LinkedList();

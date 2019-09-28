@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Proyecto1;
 
 import javafx.application.Application;
@@ -12,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- *
- * @author Nati Gonzalez
+ * Es la clase principal que llama al controlador de FXML y carga la ventana principal de la interfaz de usuario
+ * @author Natalia Gonzalez
  */
 
 public class MainClass extends Application {
