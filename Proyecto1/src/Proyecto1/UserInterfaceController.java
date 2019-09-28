@@ -47,6 +47,9 @@ public class UserInterfaceController implements Initializable {
     private VBox vbox;
     
     @FXML
+    private VBox vboxGates;
+    
+    @FXML
     private AnchorPane anchorpane;
     
     @FXML
@@ -64,6 +67,7 @@ public class UserInterfaceController implements Initializable {
         // TODO
         anchorpane.getStyleClass().add("anchorpane");
         scrollpane.getStyleClass().addAll("scroll-pane","scroll-bar");
+        vboxGates.getStyleClass().add("anchorpane");
     }
    /**
     * MMétodo asociado a un botón que simula el circuito diseñado
@@ -106,7 +110,7 @@ public class UserInterfaceController implements Initializable {
         g.setOnMouseDragged(dragGate);
         g.setOnMouseClicked(userGateEvents);
         g.getChildren().addAll(usrgate,usrgate.label);
-        savedGates.insertLast(g);
+        
         int y = 0;
         for (int i=0; i< inputs;i++){
             Label label = new Label(Integer.toString((int)usrgate.inputs.searchByIndex(i)));
@@ -128,12 +132,13 @@ public class UserInterfaceController implements Initializable {
             g.getChildren().add(label);
             y+=10;
         }
+        savedGates.insertLast(g);
         encapsular.clearList();
         Label gateNumber = new Label (savedGatesNum+": "+nombre);
         gateNumber.setFont(new Font("Simular",15));
         gateNumber.setTextFill(Color.web("#ffde00", 0.8));
         gateNumber.setOnMouseClicked(createUserGate);
-        vbox.getChildren().add(gateNumber);
+        vboxGates.getChildren().add(gateNumber);
         
         savedGatesNum++;
         
@@ -462,14 +467,10 @@ public class UserInterfaceController implements Initializable {
         public void handle(MouseEvent t) {
             if(t.isAltDown()){
                 Group g = (Group)(t.getSource());
-                USERGATE usrgate=(USERGATE)(g.getChildren().get(0));
-                for (int i=0;i<usrgate.getInputs().getSize();i++){
-                    circuit.delete((int)usrgate.getInputs().searchByIndex(i));
+                for (int i = 2; i < g.getChildren().size();i++){
+                    Label l = (Label)g.getChildren().get(i);
+                    circuit.delete(Integer.parseInt(l.getText()));
                 }
-                for (int i=0;i<usrgate.getOutputs().getSize();i++){
-                    circuit.delete((int)usrgate.getOutputs().searchByIndex(i));
-                }
-               
                 pane.getChildren().remove(g);
                 
             }
@@ -516,7 +517,7 @@ public class UserInterfaceController implements Initializable {
             circuit.agregarCircuito(savedGate.circuito);
             
             pane.getChildren().addAll(savedGroup);  
-            vbox.getChildren().removeAll(l);
+            vboxGates.getChildren().removeAll(l);
             
         } 
    };
