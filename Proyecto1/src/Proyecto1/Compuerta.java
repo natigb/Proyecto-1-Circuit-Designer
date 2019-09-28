@@ -18,7 +18,9 @@ public class Compuerta extends ImageView{
     boolean valor;
     Label label;
     
-    
+    /**
+     * Inicializa InputGates, OutputGates y el label
+     */
     public Compuerta(){
         InputGates=new LinkedList();
         OutputGates= new LinkedList();
@@ -28,6 +30,9 @@ public class Compuerta extends ImageView{
 
         
     }
+    /**
+     * Operación dependiendo de cual compuerta se crea
+     */
     public void operacion( ){
     }
     /**
@@ -64,195 +69,3 @@ public class Compuerta extends ImageView{
       }  
   }
  
-class AND extends Compuerta{
-    /**
-     * Operación de una and, si hay aunque sea un false, retorna un false
-     */
-    @Override
-    public void operacion(){
-        this.valor = !(searchAmount(false)!=0);
-    }
-}
-
-class NAND extends Compuerta{
-    /**
-     * Operación de una nand, si hay un true, retorna true
-     */
-    @Override
-    public void operacion(){
-        this.valor = (searchAmount(false)!=0);
-    }
-}
-
-class OR extends Compuerta{
-    /**
-     * Operacion de una or, si hay un true. devuelve false
-     */
-    @Override
-    public void operacion(){
-        this.valor = (searchAmount(true)!=0);
-    }
-}
-class NOR extends Compuerta{
-    /**
-     * Operacion de una nor, si hay un true. devuelve true
-     */
-    @Override
-    public void operacion(){
-        this.valor = !(searchAmount(true)!=0);
-    } 
-}
-class NOT extends Compuerta{
-    /**
-     * Operaciín ce una not, si hay un true devuelve false y si hay un false devuelve true
-     */
-    @Override
-    public void operacion(){
-        AND and = new AND();
-        InputGates.insertFirst(and);
-        Compuerta compuerta= (Compuerta)InputGates.getHead().getData();
-        this.valor= !(compuerta.valor); 
-    }
-}
-
-class XOR extends Compuerta{
-    /**
-     * Operación ce una xor, si hay una cantidad impares de true devuelve true
-     */
-    @Override
-    public void operacion(){
-        this.valor= (searchAmount(true)%2!=0);
-    }
-}
-
-class XNOR extends Compuerta{
-    /**
-     * Operación ce una xnor, si hay una cantidad impares de true devuelve false
-     */
-    @Override
-    public void operacion(){
-        this.valor= !(searchAmount(true)%2!=0);
-    }
-}
-    
-class Entrada extends Compuerta{
-    
-    public Entrada() {
-        this.valor=true;
-    }
-    /**
-     * Si tiene algo en la entrada entonces devuelve el valor que tiene en la primera posición
-     */
-    @Override
-    public void operacion(){
-        if (this.InputGates.getSize()!=0){
-           Compuerta c =(Compuerta)InputGates.getHead().getData();
-           this.valor= c.valor;
-        }
-    }
-    /**
-     * Si el valor de entrada es false lo cambia a true y viceversa
-     */
-    public void change(){
-        if (valor){
-            this.valor=false;
-        }
-        else{
-            this.valor=true;
-        }
-        System.out.println("Cambio");
-        }
-    /**
-     * Establece el valor de la compuerta a true
-     */
-    public void setToTrue(){
-        this.valor = true;
-    }
-    /**
-     * Establece el valor de la compuerta a false
-     */
-    public void setToFalse(){
-        this.valor = false;
-    }   
-}
-
-class USERGATE extends Compuerta{
-    LinkedList circuito;
-    LinkedList inputs;
-    LinkedList outputs;
-
-    public USERGATE(LinkedList circuito) {
-        this.circuito = circuito;
-        this.inputs = inputIDs();
-        this.outputs = outputIDs();
-
-    }
-    
-    /**
-     * Función que mete en una lista todos los IDs de los inputs de las compuertas
-     * @return Lista enlazada con los Ids de las compuertas de entrada
-     */
-    public LinkedList inputIDs(){
-        LinkedList inputIds= new LinkedList();
-        Node current = circuito.getHead();
-        while (current!=null){
-            Compuerta compuerta = (Compuerta)current.getData();
-            if (compuerta.getID()<0 && compuerta.InputGates.getSize()==0){
-                inputIds.insertFirst(compuerta.getID());
-            }
-            current= current.getNext();
-        }
-        return inputIds;
-    }
-    /**
-     * Función que mete en una lista todos los IDs de los outputs de las compuertas
-     * @return Lista enlazada con los Ids de las compuertas de salida
-     */
-    public LinkedList outputIDs(){
-        LinkedList outputIds= new LinkedList();
-        Node current = circuito.getHead();
-        while (current!=null){
-            Compuerta compuerta = (Compuerta)current.getData();
-            if (compuerta.getID()>=0 && compuerta.OutputGates.getSize()==0){
-                outputIds.insertFirst(compuerta.getID());
-            }
-            current= current.getNext();
-        }
-        return outputIds;
-    }
-    public LinkedList getCircuito() {
-        return circuito;
-    }
-
-    public void setCircuito(LinkedList circuito) {
-        this.circuito = circuito;
-    }
-
-    public LinkedList getInputs() {
-        this.inputs = inputIDs();
-        return inputs;
-    }
-
-    public void setInputs(LinkedList inputs) {
-        this.inputs = inputs;
-    }
-
-    public LinkedList getOutputs() {
-        this.outputs = outputIDs();
-        return outputs;
-    }
-
-    public void setOutputs(LinkedList outputs) {
-        this.outputs = outputs;
-    }
-    
-    
-
-
-}
-
-        
-    
-
-
-
